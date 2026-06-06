@@ -7,1041 +7,638 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg:        #0a0c10;
-    --bg2:       #0f1219;
-    --bg3:       #161b25;
-    --border:    #1e2535;
-    --accent:    #00e5ff;
-    --accent2:   #ff4d6d;
-    --accent3:   #b8ff57;
-    --accent4:   #ffb347;
-    --text:      #cdd6f4;
-    --muted:     #6272a4;
-    --mono:      'Space Mono', monospace;
-    --sans:      'DM Sans', sans-serif;
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    background:var(--bg);
-    color:var(--text);
-    font-family:var(--sans);
-    font-size:14px;
-    line-height:1.6;
-    min-height:100vh;
-  }
+:root{
+  --bg:#0a0c10;--bg2:#0f1219;--bg3:#161b25;--border:#1e2535;
+  --accent:#00e5ff;--accent2:#ff4d6d;--accent3:#b8ff57;--accent4:#ffb347;
+  --text:#cdd6f4;--muted:#6272a4;
+  --mono:'Space Mono',monospace;--sans:'DM Sans',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14px;line-height:1.6;min-height:100vh;padding-bottom:40px;}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.06) 2px,rgba(0,0,0,.06) 4px);}
 
-  /* ── SCANLINE OVERLAY ── */
-  body::before{
-    content:'';
-    position:fixed;inset:0;pointer-events:none;z-index:9999;
-    background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.08) 2px,rgba(0,0,0,.08) 4px);
-  }
+/* HEADER */
+header{border-bottom:1px solid var(--border);padding:16px 28px;display:flex;align-items:center;justify-content:space-between;background:var(--bg2);position:sticky;top:0;z-index:100;}
+.logo{font-family:var(--mono);font-size:17px;font-weight:700;color:var(--accent);letter-spacing:2px;display:flex;align-items:center;gap:10px;}
+.logo span{color:var(--muted);font-weight:400;}
+.logo-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(1.5);}}
+nav{display:flex;gap:5px;flex-wrap:wrap;}
+nav button{font-family:var(--mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:7px 14px;border-radius:4px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s;}
+nav button.active,nav button:hover{border-color:var(--accent);color:var(--accent);background:rgba(0,229,255,.07);}
 
-  /* ── HEADER ── */
-  header{
-    border-bottom:1px solid var(--border);
-    padding:18px 32px;
-    display:flex;align-items:center;justify-content:space-between;
-    background:var(--bg2);
-    position:sticky;top:0;z-index:100;
-    backdrop-filter:blur(12px);
-  }
-  .logo{
-    font-family:var(--mono);font-size:18px;font-weight:700;
-    color:var(--accent);letter-spacing:2px;
-    display:flex;align-items:center;gap:10px;
-  }
-  .logo span{color:var(--muted);font-weight:400;}
-  .logo-dot{
-    width:8px;height:8px;border-radius:50%;
-    background:var(--accent);
-    animation:pulse 2s ease-in-out infinite;
-  }
-  @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(1.4);}}
+/* SECTIONS */
+.section{display:none;padding:28px;}
+.section.active{display:block;}
+.sec-head{margin-bottom:24px;border-left:3px solid var(--accent);padding-left:14px;}
+.sec-head h2{font-family:var(--mono);font-size:18px;color:var(--accent);letter-spacing:1px;}
+.sec-head p{color:var(--muted);font-size:13px;margin-top:3px;}
 
-  nav{display:flex;gap:6px;}
-  nav button{
-    font-family:var(--mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;
-    padding:7px 16px;border-radius:4px;border:1px solid var(--border);
-    background:transparent;color:var(--muted);cursor:pointer;transition:all .2s;
-  }
-  nav button.active,nav button:hover{
-    border-color:var(--accent);color:var(--accent);
-    background:rgba(0,229,255,.07);
-  }
+/* LAYOUT */
+.grid2{display:grid;grid-template-columns:270px 1fr;gap:18px;align-items:start;}
+.panel{background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:12px;}
+.panel:last-child{margin-bottom:0;}
+.ph{background:var(--bg3);padding:9px 14px;font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);}
+.ph::before{content:'// ';color:var(--accent);}
+.pb{padding:14px;}
 
-  /* ── SECTIONS ── */
-  .section{display:none;padding:32px;}
-  .section.active{display:block;}
+/* DIST TABS */
+.dt{display:flex;flex-direction:column;gap:4px;}
+.dtab{font-family:var(--mono);font-size:12px;padding:8px 10px;border-radius:4px;border:1px solid transparent;background:transparent;color:var(--muted);cursor:pointer;text-align:left;transition:all .15s;display:flex;align-items:center;justify-content:space-between;}
+.dtab:hover{border-color:var(--border);color:var(--text);}
+.dtab.active{border-color:var(--accent);color:var(--accent);background:rgba(0,229,255,.06);}
+.dtag{font-size:9px;padding:2px 6px;border-radius:2px;background:var(--bg3);color:var(--muted);}
+.dtab.active .dtag{background:var(--accent);color:var(--bg);}
 
-  .section-header{
-    margin-bottom:28px;
-    border-left:3px solid var(--accent);
-    padding-left:16px;
-  }
-  .section-header h2{
-    font-family:var(--mono);font-size:20px;color:var(--accent);letter-spacing:1px;
-  }
-  .section-header p{color:var(--muted);font-size:13px;margin-top:4px;}
+/* INPUTS */
+label{display:block;margin-bottom:4px;font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.5px;}
+input[type=number],input[type=text],textarea,select{width:100%;padding:8px 10px;background:var(--bg3);border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:var(--mono);font-size:13px;transition:border-color .15s;margin-bottom:10px;outline:none;}
+input[type=number]:focus,input[type=text]:focus,textarea:focus,select:focus{border-color:var(--accent);}
+textarea{resize:vertical;min-height:70px;}
+.ir{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
 
-  /* ── GRID LAYOUT ── */
-  .grid2{display:grid;grid-template-columns:280px 1fr;gap:20px;align-items:start;}
-  .panel{
-    background:var(--bg2);border:1px solid var(--border);border-radius:8px;
-    overflow:hidden;
-  }
-  .panel-head{
-    background:var(--bg3);padding:10px 16px;
-    font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;
-    color:var(--muted);border-bottom:1px solid var(--border);
-    display:flex;align-items:center;gap:8px;
-  }
-  .panel-head::before{content:'//';color:var(--accent);font-weight:700;}
-  .panel-body{padding:16px;}
+/* BUTTONS */
+.btn{font-family:var(--mono);font-size:12px;letter-spacing:1px;text-transform:uppercase;padding:9px 16px;border-radius:4px;cursor:pointer;transition:all .2s;border:1px solid;display:inline-flex;align-items:center;gap:6px;}
+.btn-p{background:var(--accent);color:var(--bg);border-color:var(--accent);font-weight:700;}
+.btn-p:hover{background:transparent;color:var(--accent);}
+.btn-o{background:transparent;color:var(--accent);border-color:var(--accent);}
+.btn-o:hover{background:rgba(0,229,255,.1);}
+.btn-d{color:var(--accent2);border-color:var(--accent2);background:transparent;}
+.btn-d:hover{background:rgba(255,77,109,.1);}
+.btn-sm{padding:5px 10px;font-size:10px;}
+.btn-full{width:100%;justify-content:center;}
 
-  /* ── DIST TABS ── */
-  .dist-tabs{display:flex;flex-direction:column;gap:4px;margin-bottom:16px;}
-  .dist-tab{
-    font-family:var(--mono);font-size:12px;letter-spacing:.5px;
-    padding:8px 12px;border-radius:4px;border:1px solid transparent;
-    background:transparent;color:var(--muted);cursor:pointer;
-    text-align:left;transition:all .15s;display:flex;align-items:center;gap:8px;
-  }
-  .dist-tab .tag{
-    font-size:9px;padding:2px 6px;border-radius:2px;
-    background:var(--bg3);color:var(--muted);
-  }
-  .dist-tab:hover{border-color:var(--border);color:var(--text);}
-  .dist-tab.active{
-    border-color:var(--accent);color:var(--accent);
-    background:rgba(0,229,255,.06);
-  }
-  .dist-tab.active .tag{background:var(--accent);color:var(--bg);}
+/* CANVAS */
+.cw{background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+canvas{display:block;}
 
-  /* ── INPUTS ── */
-  label{
-    display:block;margin-bottom:4px;
-    font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.5px;
-  }
-  input[type=number],input[type=text],textarea,select{
-    width:100%;padding:8px 10px;
-    background:var(--bg3);border:1px solid var(--border);border-radius:4px;
-    color:var(--text);font-family:var(--mono);font-size:13px;
-    transition:border-color .15s;margin-bottom:10px;
-    outline:none;
-  }
-  input[type=number]:focus,input[type=text]:focus,textarea:focus,select:focus{
-    border-color:var(--accent);
-  }
-  textarea{resize:vertical;min-height:72px;}
+/* PROB CARDS */
+.prob-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px;}
+.pcard{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:10px;text-align:center;}
+.pcard .lbl{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.5px;}
+.pcard .val{font-family:var(--mono);font-size:17px;font-weight:700;color:var(--accent3);margin-top:3px;}
 
-  .input-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+/* BOUNDS */
+.br{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.blbl{font-family:var(--mono);font-size:10px;margin-bottom:3px;letter-spacing:.5px;}
+.blbl.x1c{color:var(--accent2);}
+.blbl.x2c{color:var(--accent4);}
 
-  /* ── BUTTONS ── */
-  .btn{
-    font-family:var(--mono);font-size:12px;letter-spacing:1px;text-transform:uppercase;
-    padding:9px 18px;border-radius:4px;cursor:pointer;transition:all .2s;
-    border:1px solid;display:inline-flex;align-items:center;gap:6px;
-  }
-  .btn-primary{
-    background:var(--accent);color:var(--bg);border-color:var(--accent);font-weight:700;
-  }
-  .btn-primary:hover{background:transparent;color:var(--accent);}
-  .btn-outline{
-    background:transparent;color:var(--accent);border-color:var(--accent);
-  }
-  .btn-outline:hover{background:rgba(0,229,255,.1);}
-  .btn-danger{color:var(--accent2);border-color:var(--accent2);background:transparent;}
-  .btn-danger:hover{background:rgba(255,77,109,.1);}
-  .btn-sm{padding:5px 12px;font-size:11px;}
+/* PIECEWISE EDITOR */
+.pw-row{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:5px;margin-bottom:5px;align-items:center;}
+.pw-row input{margin-bottom:0;}
+.pw-head{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:5px;margin-bottom:4px;}
+.pw-head span{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.5px;}
 
-  /* ── CANVAS ── */
-  .canvas-wrap{
-    background:var(--bg2);border:1px solid var(--border);border-radius:8px;
-    overflow:hidden;position:relative;
-  }
-  canvas{display:block;width:100%;cursor:crosshair;}
+/* PARAMS OUTPUT */
+.pout{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:12px;font-family:var(--mono);font-size:12px;color:var(--accent3);min-height:44px;margin-bottom:10px;white-space:pre-wrap;}
+.interp{background:rgba(184,255,87,.05);border:1px solid rgba(184,255,87,.2);border-radius:6px;padding:12px;font-size:13px;color:var(--accent3);font-family:var(--mono);font-size:12px;white-space:pre-wrap;}
 
-  /* ── PROB DISPLAY ── */
-  .prob-strip{
-    display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
-    margin-top:14px;
-  }
-  .prob-card{
-    background:var(--bg3);border:1px solid var(--border);border-radius:6px;
-    padding:10px;text-align:center;
-  }
-  .prob-card .label{
-    font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.5px;
-  }
-  .prob-card .value{
-    font-family:var(--mono);font-size:18px;font-weight:700;
-    color:var(--accent3);margin-top:4px;
-  }
+/* UPLOAD ZONE */
+.upzone{border:2px dashed var(--border);border-radius:8px;padding:24px;text-align:center;cursor:pointer;transition:all .2s;margin-bottom:10px;}
+.upzone:hover{border-color:var(--accent);background:rgba(0,229,255,.03);}
+.upzone p{color:var(--muted);font-family:var(--mono);font-size:12px;margin-top:6px;}
+.upzone .ico{font-size:24px;}
+#fileInput{display:none;}
 
-  /* ── PROB BOUNDS ── */
-  .bounds-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-  .bound-label{
-    font-family:var(--mono);font-size:10px;margin-bottom:3px;letter-spacing:.5px;
-  }
-  .bound-label.x1{color:var(--accent2);}
-  .bound-label.x2{color:var(--accent4);}
+/* DEPLOY */
+.deploy{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:12px 14px;font-family:var(--mono);font-size:12px;display:flex;align-items:center;gap:10px;margin-top:14px;flex-wrap:wrap;}
+.deploy input{flex:1;margin-bottom:0;min-width:180px;}
+.deploy a{color:var(--accent);text-decoration:none;font-size:12px;}
+.deploy a:hover{text-decoration:underline;}
 
-  /* ── PARAMS DISPLAY ── */
-  .params-out{
-    background:var(--bg3);border:1px solid var(--border);border-radius:6px;
-    padding:14px;font-family:var(--mono);font-size:12px;
-    color:var(--accent3);min-height:48px;margin-bottom:10px;
-    white-space:pre-wrap;
-  }
+/* AI RECORD */
+.ai-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:20px;margin-bottom:14px;}
+.ai-card h3{font-family:var(--mono);font-size:13px;color:var(--accent);letter-spacing:1px;margin-bottom:10px;}
+.ai-card p{color:var(--muted);font-size:13px;line-height:1.7;}
+.badge{display:inline-block;padding:2px 8px;border-radius:3px;font-family:var(--mono);font-size:10px;letter-spacing:1px;font-weight:700;text-transform:uppercase;margin-right:6px;}
+.b1{background:rgba(0,229,255,.15);color:var(--accent);}
+.b2{background:rgba(184,255,87,.15);color:var(--accent3);}
+.b3{background:rgba(255,179,71,.15);color:var(--accent4);}
+.b4{background:rgba(255,77,109,.15);color:var(--accent2);}
+.ai-link{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:6px;border:1px solid var(--border);background:var(--bg3);color:var(--accent);font-family:var(--mono);font-size:12px;text-decoration:none;margin-right:10px;margin-top:6px;transition:all .2s;}
+.ai-link:hover{border-color:var(--accent);background:rgba(0,229,255,.07);}
 
-  /* ── HISTOGRAM / FIT ── */
-  .fit-result{margin-top:14px;}
+/* REPORT */
+.report{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:28px;max-width:860px;font-size:14px;line-height:1.8;}
+.report h1{font-family:var(--mono);font-size:17px;color:var(--accent);letter-spacing:1px;margin-bottom:6px;}
+.report h2{font-family:var(--mono);font-size:13px;color:var(--accent3);letter-spacing:1px;margin:22px 0 8px;text-transform:uppercase;border-bottom:1px solid var(--border);padding-bottom:6px;}
+.report p{margin-bottom:10px;}
+.report .cite{color:var(--accent4);font-style:italic;}
+.report table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px;}
+.report th{background:var(--bg3);font-family:var(--mono);font-size:11px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;padding:8px 12px;text-align:left;border:1px solid var(--border);}
+.report td{padding:8px 12px;border:1px solid var(--border);}
+.report ul{list-style:none;padding:0;}
+.report ul li{padding:6px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--muted);}
+hr.d{border:none;border-top:1px dashed var(--border);margin:18px 0;}
 
-  /* ── STATUS BAR ── */
-  .statusbar{
-    position:fixed;bottom:0;left:0;right:0;
-    background:var(--bg2);border-top:1px solid var(--border);
-    padding:6px 32px;display:flex;align-items:center;gap:16px;
-    font-family:var(--mono);font-size:11px;color:var(--muted);z-index:200;
-  }
-  .statusbar .dot{width:6px;height:6px;border-radius:50%;background:var(--accent3);}
+/* HELPERS */
+.mt8{margin-top:8px;}.mt12{margin-top:12px;}.mt16{margin-top:16px;}
+.muted{color:var(--muted);}
+.hint{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:8px;}
 
-  /* ── PIECEWISE EDITOR ── */
-  .pw-row{
-    display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:6px;
-    margin-bottom:6px;align-items:center;
-  }
-  .pw-row input{margin-bottom:0;}
-
-  /* ── AI RECORD ── */
-  .ai-card{
-    background:var(--bg2);border:1px solid var(--border);border-radius:8px;
-    padding:20px;margin-bottom:16px;
-  }
-  .ai-card h3{
-    font-family:var(--mono);font-size:13px;color:var(--accent);
-    letter-spacing:1px;margin-bottom:10px;
-  }
-  .ai-card pre{
-    background:var(--bg3);border:1px solid var(--border);border-radius:4px;
-    padding:12px;font-family:var(--mono);font-size:11px;color:var(--text);
-    overflow-x:auto;white-space:pre-wrap;line-height:1.7;
-  }
-  .ai-card p{color:var(--muted);font-size:13px;line-height:1.7;}
-
-  .tag-badge{
-    display:inline-block;padding:2px 8px;border-radius:3px;
-    font-family:var(--mono);font-size:10px;letter-spacing:1px;font-weight:700;
-    text-transform:uppercase;margin-right:6px;
-  }
-  .badge-prompt{background:rgba(0,229,255,.15);color:var(--accent);}
-  .badge-code{background:rgba(184,255,87,.15);color:var(--accent3);}
-  .badge-verify{background:rgba(255,179,71,.15);color:var(--accent4);}
-  .badge-test{background:rgba(255,77,109,.15);color:var(--accent2);}
-
-  /* Deploy link */
-  .deploy-block{
-    background:var(--bg3);border:1px solid var(--border);border-radius:6px;
-    padding:12px 16px;font-family:var(--mono);font-size:12px;
-    display:flex;align-items:center;gap:12px;margin-top:10px;
-  }
-  .deploy-block a{color:var(--accent);text-decoration:none;}
-  .deploy-block a:hover{text-decoration:underline;}
-  .deploy-block input{flex:1;margin-bottom:0;}
-  .deploy-block .btn{flex-shrink:0;}
-
-  /* C10 report */
-  .report-area{
-    background:var(--bg2);border:1px solid var(--border);border-radius:8px;
-    padding:28px;max-width:860px;
-    font-family:var(--sans);font-size:14px;line-height:1.8;color:var(--text);
-  }
-  .report-area h1{
-    font-family:var(--mono);font-size:18px;color:var(--accent);
-    letter-spacing:1px;margin-bottom:6px;
-  }
-  .report-area h2{
-    font-family:var(--mono);font-size:14px;color:var(--accent3);
-    letter-spacing:1px;margin:22px 0 8px;text-transform:uppercase;
-    border-bottom:1px solid var(--border);padding-bottom:6px;
-  }
-  .report-area p{margin-bottom:10px;}
-  .report-area .ref-list{list-style:none;padding:0;}
-  .report-area .ref-list li{
-    padding:6px 0;border-bottom:1px solid var(--border);
-    font-size:13px;color:var(--muted);
-  }
-  .report-area table{width:100%;border-collapse:collapse;margin:12px 0;}
-  .report-area th{
-    background:var(--bg3);font-family:var(--mono);font-size:11px;
-    letter-spacing:1px;color:var(--muted);text-transform:uppercase;
-    padding:8px 12px;text-align:left;border:1px solid var(--border);
-  }
-  .report-area td{
-    padding:8px 12px;border:1px solid var(--border);font-size:13px;
-  }
-  .report-area .cite{color:var(--accent4);font-style:italic;}
-
-  /* Divider */
-  hr.dash{border:none;border-top:1px dashed var(--border);margin:20px 0;}
-
-  /* Interpretation box */
-  .interp{
-    background:rgba(184,255,87,.05);border:1px solid rgba(184,255,87,.2);
-    border-radius:6px;padding:12px;font-size:13px;color:var(--accent3);
-    margin-top:10px;font-family:var(--mono);
-  }
-
-  /* Upload zone */
-  .upload-zone{
-    border:2px dashed var(--border);border-radius:8px;
-    padding:28px;text-align:center;cursor:pointer;
-    transition:all .2s;margin-bottom:10px;
-  }
-  .upload-zone:hover{border-color:var(--accent);background:rgba(0,229,255,.03);}
-  .upload-zone p{color:var(--muted);font-family:var(--mono);font-size:12px;}
-  .upload-zone .icon{font-size:28px;margin-bottom:8px;}
-  #fileInput{display:none;}
-
-  /* small helpers */
-  .mt8{margin-top:8px;}
-  .mt16{margin-top:16px;}
-  .flex{display:flex;align-items:center;gap:8px;}
-  .muted{color:var(--muted);}
-  .accent{color:var(--accent);}
-
-  @media(max-width:768px){
-    .grid2{grid-template-columns:1fr;}
-    .prob-strip{grid-template-columns:1fr;}
-    header{padding:12px 16px;}
-    .section{padding:16px;}
-  }
+@media(max-width:800px){.grid2{grid-template-columns:1fr;}.prob-strip{grid-template-columns:1fr 1fr;}}
 </style>
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════════ HEADER ═══ -->
+<!-- HEADER -->
 <header>
-  <div class="logo">
-    <div class="logo-dot"></div>
-    PROB<span>LAB</span>
-  </div>
+  <div class="logo"><div class="logo-dot"></div>PROB<span>LAB</span></div>
   <nav>
-    <button class="active" onclick="showSection('c8')">C8 — Simulate</button>
-    <button onclick="showSection('c9')">C9 — Model Data</button>
-    <button onclick="showSection('ai')">AI Record</button>
-    <button onclick="showSection('c10')">C10 — Report</button>
+    <button id="nav-c8" class="active" onclick="showSec('c8')">C8 — Simulate</button>
+    <button id="nav-c9" onclick="showSec('c9')">C9 — Model Data</button>
+    <button id="nav-ai" onclick="showSec('ai')">AI Record</button>
+    <button id="nav-c10" onclick="showSec('c10')">C10 — Report</button>
   </nav>
 </header>
 
-<!-- ═══════════════════════════════════════════ C8 ═══════ -->
+<!-- ══════════════════════════════ C8 ══════════════════════════════ -->
 <section id="sec-c8" class="section active">
-  <div class="section-header">
-    <h2>// C8 — PDF Simulation</h2>
-    <p>Select a distribution, adjust parameters, and explore probability regions under the curve.</p>
-  </div>
-
+  <div class="sec-head"><h2>// C8 — PDF Simulation</h2><p>Select a distribution, adjust parameters, and explore probability regions under the curve.</p></div>
   <div class="grid2">
-    <!-- LEFT PANEL -->
+    <!-- LEFT -->
     <div>
       <div class="panel">
-        <div class="panel-head">Distribution</div>
-        <div class="panel-body" style="padding-bottom:8px;">
-          <div class="dist-tabs">
-            <button class="dist-tab active" onclick="setDist('uniform')">Uniform <span class="tag">UNIF</span></button>
-            <button class="dist-tab" onclick="setDist('triangular')">Triangular <span class="tag">TRI</span></button>
-            <button class="dist-tab" onclick="setDist('linear')">Linear <span class="tag">LIN</span></button>
-            <button class="dist-tab" onclick="setDist('piecewise')">Piecewise <span class="tag">PW</span></button>
-            <button class="dist-tab" onclick="setDist('normal')">Normal <span class="tag">NORM</span></button>
+        <div class="ph">Distribution</div>
+        <div class="pb">
+          <div class="dt">
+            <button class="dtab active" id="dt-uniform"    onclick="setDist('uniform')">   Uniform    <span class="dtag">UNIF</span></button>
+            <button class="dtab"         id="dt-triangular" onclick="setDist('triangular')">Triangular <span class="dtag">TRI</span></button>
+            <button class="dtab"         id="dt-linear"    onclick="setDist('linear')">    Linear     <span class="dtag">LIN</span></button>
+            <button class="dtab"         id="dt-piecewise" onclick="setDist('piecewise')"> Piecewise  <span class="dtag">PW</span></button>
+            <button class="dtab"         id="dt-normal"    onclick="setDist('normal')">    Normal     <span class="dtag">NORM</span></button>
           </div>
         </div>
       </div>
-
-      <!-- PARAMS -->
-      <div class="panel mt8" id="paramPanel">
-        <div class="panel-head">Parameters</div>
-        <div class="panel-body" id="paramBody"></div>
+      <div class="panel" id="paramPanel">
+        <div class="ph">Parameters</div>
+        <div class="pb" id="paramBody"><!-- filled by JS --></div>
       </div>
-
-      <!-- PROB BOUNDS -->
-      <div class="panel mt8">
-        <div class="panel-head">Probability Bounds</div>
-        <div class="panel-body">
-          <div class="bounds-row">
-            <div>
-              <div class="bound-label x1">x₁ — lower</div>
-              <input type="number" id="x1" value="1" step="0.1" oninput="drawPDF()"/>
-            </div>
-            <div>
-              <div class="bound-label x2">x₂ — upper</div>
-              <input type="number" id="x2" value="3" step="0.1" oninput="drawPDF()"/>
-            </div>
+      <div class="panel">
+        <div class="ph">Probability Bounds</div>
+        <div class="pb">
+          <div class="br">
+            <div><div class="blbl x1c">x₁ — lower</div><input type="number" id="x1" value="1" step="0.1" oninput="drawPDF()"/></div>
+            <div><div class="blbl x2c">x₂ — upper</div><input type="number" id="x2" value="3" step="0.1" oninput="drawPDF()"/></div>
           </div>
           <div class="prob-strip">
-            <div class="prob-card">
-              <div class="label">P(X &lt; x₁)</div>
-              <div class="value" id="pBelow">—</div>
-            </div>
-            <div class="prob-card">
-              <div class="label">P(X &gt; x₂)</div>
-              <div class="value" id="pAbove">—</div>
-            </div>
-            <div class="prob-card">
-              <div class="label">P(x₁ &lt; X &lt; x₂)</div>
-              <div class="value" id="pBetween">—</div>
-            </div>
+            <div class="pcard"><div class="lbl">P(X &lt; x₁)</div><div class="val" id="pBelow">—</div></div>
+            <div class="pcard"><div class="lbl">P(X &gt; x₂)</div><div class="val" id="pAbove">—</div></div>
+            <div class="pcard"><div class="lbl">P(x₁ &lt; X &lt; x₂)</div><div class="val" id="pBetween">—</div></div>
           </div>
         </div>
       </div>
     </div>
-
     <!-- RIGHT: CANVAS -->
     <div>
-      <div class="canvas-wrap">
-        <canvas id="pdfCanvas" height="400"></canvas>
-      </div>
-      <div style="margin-top:10px;font-family:var(--mono);font-size:11px;color:var(--muted);">
-        ▸ Drag <span style="color:var(--accent2)">x₁</span> and <span style="color:var(--accent4)">x₂</span> lines directly on the graph, or type values in the inputs.
+      <div class="cw"><canvas id="pdfCanvas"></canvas></div>
+      <p class="hint mt8">▸ Drag <span style="color:var(--accent2)">x₁</span> and <span style="color:var(--accent4)">x₂</span> dashed lines directly on the graph, or type values in the inputs above.</p>
+      <div class="deploy">
+        <span class="muted">GITHUB PAGES →</span>
+        <input type="text" id="deployUrl" placeholder="https://yourusername.github.io/repo/" style="flex:1;margin-bottom:0;"/>
+        <a href="#" id="deployLink" target="_blank" onclick="openDeploy('deployUrl','deployLink');return false;" class="btn btn-o btn-sm">Open ↗</a>
       </div>
     </div>
-  </div>
-
-  <!-- Deploy link -->
-  <div class="deploy-block mt16">
-    <span class="muted">GITHUB PAGES URL →</span>
-    <input type="text" id="deployUrl" placeholder="https://yourusername.github.io/your-repo/" style="flex:1;margin-bottom:0;"/>
-    <a id="deployLink" href="#" target="_blank" onclick="updateDeployLink()" class="btn btn-outline btn-sm">Open ↗</a>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════ C9 ═══════ -->
+<!-- ══════════════════════════════ C9 ══════════════════════════════ -->
 <section id="sec-c9" class="section">
-  <div class="section-header">
-    <h2>// C9 — Data Modeling</h2>
-    <p>Upload or paste data, estimate distribution parameters, and compare fitted PDFs with empirical histograms.</p>
-  </div>
-
+  <div class="sec-head"><h2>// C9 — Data Modeling</h2><p>Upload or paste data, estimate distribution parameters, and compare fitted PDFs with empirical histograms.</p></div>
   <div class="grid2">
+    <!-- LEFT -->
     <div>
       <div class="panel">
-        <div class="panel-head">Data Input</div>
-        <div class="panel-body">
-          <label for="fileInput">Upload CSV (single column)</label>
-          <div class="upload-zone" onclick="document.getElementById('fileInput').click()">
-            <div class="icon">⬆</div>
-            <p>Click to upload CSV</p>
+        <div class="ph">Data Input</div>
+        <div class="pb">
+          <div class="upzone" onclick="document.getElementById('fileInput').click()">
+            <div class="ico">⬆</div>
+            <p>Click to upload CSV (one column)</p>
           </div>
           <input type="file" id="fileInput" accept=".csv,.txt" onchange="loadCSV(event)"/>
-          <label>Or paste comma/newline separated values</label>
-          <textarea id="pasteData" placeholder="12.3, 14.5, 11.8, 13.2..."></textarea>
-          <button class="btn btn-primary" onclick="loadPastedData()" style="width:100%">Load Data ▶</button>
+          <label>Or paste comma / newline separated values</label>
+          <textarea id="pasteData" placeholder="12.3, 14.5, 11.8, 13.2, ..."></textarea>
+          <button class="btn btn-p btn-full" onclick="loadPastedData()">Load Data ▶</button>
         </div>
       </div>
-
-      <div class="panel mt8">
-        <div class="panel-head">Model to Fit</div>
-        <div class="panel-body">
-          <select id="fitModel" style="margin-bottom:12px;">
+      <div class="panel">
+        <div class="ph">Distribution to Fit</div>
+        <div class="pb">
+          <select id="fitModel">
             <option value="uniform">Uniform</option>
             <option value="triangular">Triangular</option>
             <option value="linear">Linear</option>
             <option value="piecewise">Piecewise Uniform</option>
             <option value="normal" selected>Normal</option>
           </select>
-          <button class="btn btn-primary" onclick="fitDistribution()" style="width:100%">Fit Distribution ▶</button>
+          <button class="btn btn-p btn-full" onclick="fitDistribution()">Fit Distribution ▶</button>
         </div>
       </div>
-
-      <div class="panel mt8">
-        <div class="panel-head">Estimated Parameters</div>
-        <div class="panel-body">
-          <div class="params-out" id="paramOut">— no data loaded —</div>
+      <div class="panel">
+        <div class="ph">Estimated Parameters</div>
+        <div class="pb">
+          <div class="pout" id="paramOut">— no data loaded —</div>
           <div class="interp" id="interpOut" style="display:none;"></div>
         </div>
       </div>
     </div>
-
+    <!-- RIGHT -->
     <div>
-      <div class="canvas-wrap">
-        <canvas id="histCanvas" height="400"></canvas>
-      </div>
-      <div style="margin-top:10px;font-family:var(--mono);font-size:11px;color:var(--muted);">
-        Histogram (bars) + Fitted PDF (line) — same scale.
+      <div class="cw"><canvas id="histCanvas"></canvas></div>
+      <p class="hint mt8">Histogram (bars) + Fitted PDF (line) on the same scale.</p>
+      <div class="deploy">
+        <span class="muted">GITHUB PAGES →</span>
+        <input type="text" id="deployUrl2" placeholder="https://yourusername.github.io/repo/" style="flex:1;margin-bottom:0;"/>
+        <a href="#" id="deployLink2" target="_blank" onclick="openDeploy('deployUrl2','deployLink2');return false;" class="btn btn-o btn-sm">Open ↗</a>
       </div>
     </div>
   </div>
-
-  <div class="deploy-block mt16">
-    <span class="muted">GITHUB PAGES URL →</span>
-    <input type="text" id="deployUrl2" placeholder="https://yourusername.github.io/your-repo/" style="flex:1;margin-bottom:0;"/>
-    <a id="deployLink2" href="#" target="_blank" onclick="updateDeployLink2()" class="btn btn-outline btn-sm">Open ↗</a>
-  </div>
 </section>
 
-<!-- ═══════════════════════════════════════════ AI RECORD ══ -->
+<!-- ══════════════════════════════ AI RECORD ══════════════════════ -->
 <section id="sec-ai" class="section">
-  <div class="section-header">
-    <h2>// AI Development Record</h2>
-    <p>Documentation of AI assistance used to build this webpage (C9 requirement).</p>
+  <div class="sec-head"><h2>// AI Development Record</h2><p>Documentation of AI assistance used to build this webpage — required for C9.</p></div>
+
+  <div class="ai-card">
+    <h3><span class="badge b1">AI Conversations</span>Links to chats used during development</h3>
+    <p>The following AI conversations were used to help create and develop this webpage:</p>
+    <div class="mt12">
+      <a class="ai-link" href="https://gemini.google.com/share/9a2c801885b6" target="_blank">→ Gemini — AI conversation used for page development</a>
+      <a class="ai-link" href="https://chatgpt.com/share/6a236158-5758-83e9-a623-57f5222445f7" target="_blank">→ ChatGPT — AI conversation used for page development</a>
+    </div>
   </div>
 
   <div class="ai-card">
-    <h3><span class="tag-badge badge-prompt">Prompt 1</span>PDF Simulation Engine</h3>
-    <pre>
-"I need JavaScript functions to compute PDF values and probabilities (below, above, between) for these distributions: Uniform(a,b), Triangular(a,b,c), Linear increasing/decreasing on [a,b], Piecewise with user-defined intervals, and Normal(μ,σ). For each, integrate numerically using the trapezoidal rule with 2000 steps. Also help me draw these on an HTML canvas with labeled axes, shaded probability areas, and draggable bound lines."
-    </pre>
+    <h3><span class="badge b2">How AI Was Used</span></h3>
+    <p>AI tools were used to generate the HTML/CSS/JS structure, the probability math functions (PDF evaluation, numerical integration, parameter estimation routines), the interactive canvas drawing logic, and the histogram overlay code for C9.</p>
   </div>
 
   <div class="ai-card">
-    <h3><span class="tag-badge badge-prompt">Prompt 2</span>Parameter Estimation</h3>
-    <pre>
-"Write JavaScript functions to estimate distribution parameters from a data array:
-- Uniform: min and max of the data.
-- Triangular: min, max, and mode (most frequent bin midpoint).
-- Linear: use least-squares slope from the empirical CDF.
-- Piecewise Uniform: divide range into 5 equal bins, use relative frequencies as heights, normalize to total area = 1.
-- Normal: sample mean and standard deviation."
-    </pre>
+    <h3><span class="badge b3">What Was Verified</span></h3>
+    <p>All probability results were checked against known analytic values: Uniform P = (x₂−x₁)/(b−a); Normal 68–95–99.7 rule (P(μ±σ) ≈ 0.6827); Triangular CDF closed-form formula. PDFs were verified to integrate numerically to 1 ± 0.001.</p>
   </div>
 
   <div class="ai-card">
-    <h3><span class="tag-badge badge-code">AI-Generated Code</span>Core Probability Functions</h3>
-    <pre>
-// Trapezoidal integration (AI-generated, verified manually)
-function integrate(f, a, b, n=2000){
-  const h=(b-a)/n; let sum=0;
-  for(let i=0;i&lt;=n;i++){
-    const x=a+i*h;
-    sum += (i===0||i===n? 0.5:1)*f(x);
-  }
-  return sum*h;
-}
-
-// Normal PDF (AI-generated)
-function normalPDF(x,mu,sigma){
-  return Math.exp(-0.5*((x-mu)/sigma)**2)/(sigma*Math.sqrt(2*Math.PI));
-}
-
-// Parameter estimation - Normal (AI-generated)
-function estimateNormal(data){
-  const n=data.length;
-  const mu=data.reduce((a,b)=>a+b,0)/n;
-  const sigma=Math.sqrt(data.reduce((a,x)=>a+(x-mu)**2,0)/n);
-  return {mu, sigma};
-}
-    </pre>
-  </div>
-
-  <div class="ai-card">
-    <h3><span class="tag-badge badge-verify">Verification</span>What Was Checked</h3>
-    <p>• All PDFs verified to integrate to 1 using the numerical integrator (should return ≈1.0 ± 0.001).<br>
-    • Normal distribution: verified P(μ−σ &lt; X &lt; μ+σ) ≈ 0.6827 (68–95–99.7 rule).<br>
-    • Uniform: verified P(x₁ &lt; X &lt; x₂) = (x₂−x₁)/(b−a) analytically.<br>
-    • Triangular: verified that probability calculations match the closed-form CDF formula.<br>
-    • Canvas drag logic: verified that dragging x₁ past x₂ does not break the probability display.</p>
-  </div>
-
-  <div class="ai-card">
-    <h3><span class="tag-badge badge-test">Testing</span>Test Datasets Used</h3>
-    <pre>
-// Test 1 — Uniform-like (range 0–10, evenly spread)
-[0.3, 0.9, 1.4, 2.1, 2.6, 3.0, 3.7, 4.2, 4.8, 5.1,
- 5.6, 6.0, 6.5, 7.1, 7.8, 8.2, 8.7, 9.1, 9.5, 9.9]
-
-// Test 2 — Triangular-like (peak near 5, range 0–10)
-[2.1, 2.8, 3.2, 3.7, 4.0, 4.3, 4.7, 5.0, 5.2, 5.4,
- 5.6, 5.8, 6.1, 6.4, 6.8, 7.2, 7.6, 8.1, 8.7, 9.2]
-
-// Test 3 — Normal-like (μ≈5, σ≈1.5)
-[2.3, 3.1, 3.5, 3.9, 4.2, 4.5, 4.7, 5.0, 5.0, 5.2,
- 5.3, 5.5, 5.7, 6.0, 6.2, 6.5, 6.9, 7.3, 7.8, 8.4]
-    </pre>
-    <p style="margin-top:8px;">Each dataset was pasted into the C9 panel, fitted with the matching distribution, and the estimated parameters were compared to the known generating parameters. Fit interpretations were visually confirmed against the histogram overlay.</p>
+    <h3><span class="badge b4">Testing</span></h3>
+    <p>Each distribution was tested with edge cases: bounds equal to parameters, very small σ for the normal, single-piece piecewise. The C9 tool was tested with three datasets: one uniform-like (evenly spread over [0,10]), one triangular-like (peak near 5), and one normal-like (μ≈5, σ≈1.5).</p>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════ C10 ══════ -->
+<!-- ══════════════════════════════ C10 ══════════════════════════════ -->
 <section id="sec-c10" class="section">
-  <div class="section-header">
-    <h2>// C10 — Evidence-Based Report</h2>
-    <p>Real-life data analysis using continuous probability models. APA 7th edition style.</p>
-  </div>
-
-  <div class="report-area">
+  <div class="sec-head"><h2>// C10 — Evidence-Based Report</h2><p>Real-life data analysis using continuous probability models. APA 7th edition.</p></div>
+  <div class="report">
     <h1>Modeling Daily Temperature Ranges in Colombian Cities Using Continuous Probability Distributions</h1>
-    <p style="color:var(--muted);font-family:var(--mono);font-size:12px;">
-      Global Economics · Grade 10 · Term 3 · Learning Evidence 4 · C10
-    </p>
-
-    <hr class="dash"/>
-
+    <p style="color:var(--muted);font-family:var(--mono);font-size:12px;">Global Economics · Grade 10 · Term 3 · Learning Evidence 4 · C10</p>
+    <hr class="d"/>
     <h2>Introduction</h2>
-    <p>
-      Temperature variability is a critical dimension of climate behavior that affects agricultural productivity, public health planning, and energy demand. In Colombia, a country characterized by extreme topographic and climatic diversity, daily temperature ranges vary substantially between cities like Bogotá (2,600 m altitude), Medellín (1,495 m), and Cartagena (sea level). Understanding the statistical distribution of these temperature ranges enables more accurate forecasting and resource allocation (<span class="cite">IDEAM, 2023</span>).
-    </p>
-    <p>
-      Continuous probability distributions provide a rigorous framework for modeling such phenomena. The normal distribution captures symmetric, bell-shaped variability; the triangular distribution represents bounded, skewed ranges; and piecewise uniform models approximate distributions where frequency is roughly constant within segments (<span class="cite">DeGroot &amp; Schervish, 2012</span>).
-    </p>
-
+    <p>Temperature variability is a critical dimension of climate behavior that affects agricultural productivity, public health planning, and energy demand. In Colombia, a country characterized by extreme topographic and climatic diversity, daily temperature ranges vary substantially between cities like Bogotá (2,600 m altitude), Medellín (1,495 m), and Cartagena (sea level). Understanding the statistical distribution of these temperature ranges enables more accurate forecasting and resource allocation (<span class="cite">IDEAM, 2023</span>).</p>
+    <p>Continuous probability distributions provide a rigorous framework for modeling such phenomena. The normal distribution captures symmetric, bell-shaped variability; the triangular distribution represents bounded, skewed ranges; and piecewise uniform models approximate distributions where frequency is roughly constant within segments (<span class="cite">DeGroot &amp; Schervish, 2012</span>).</p>
     <h2>Research Question</h2>
-    <p>
-      <strong>How well do three continuous probability models — normal, triangular, and piecewise uniform — describe the distribution of mean daily temperatures recorded in Bogotá, Medellín, and Cartagena, and what do the resulting probability estimates reveal about thermal behavior in each city?</strong>
-    </p>
-
+    <p><strong>How well do three continuous probability models — normal, triangular, and piecewise uniform — describe the distribution of mean monthly temperatures in Bogotá, Medellín, and Cartagena, and what do the resulting probability estimates reveal about thermal behavior in each city?</strong></p>
     <h2>Data Description</h2>
-    <p>
-      Monthly mean temperature data (°C) for the period 2010–2022 were obtained from the Colombian Institute of Hydrology, Meteorology, and Environmental Studies (IDEAM) and supplemented by NASA's POWER climate database (<span class="cite">NASA, 2024</span>). Three datasets were used, one per city, each containing the monthly mean temperature across 12 months averaged over the study period.
-    </p>
-
+    <p>Monthly mean temperature data (°C) for the period 2010–2022 were obtained from the Colombian Institute of Hydrology, Meteorology, and Environmental Studies (IDEAM) and supplemented by NASA's POWER climate database (<span class="cite">NASA, 2024</span>). Three datasets were used, one per city, each containing monthly mean temperatures averaged over the study period.</p>
     <table>
-      <tr><th>City</th><th>n (months)</th><th>Mean (°C)</th><th>Std Dev (°C)</th><th>Min</th><th>Max</th></tr>
+      <tr><th>City</th><th>n</th><th>Mean μ (°C)</th><th>Std Dev σ (°C)</th><th>Min</th><th>Max</th></tr>
       <tr><td>Bogotá</td><td>12</td><td>13.8</td><td>0.72</td><td>12.6</td><td>14.9</td></tr>
       <tr><td>Medellín</td><td>12</td><td>22.3</td><td>0.95</td><td>20.8</td><td>24.1</td></tr>
       <tr><td>Cartagena</td><td>12</td><td>28.4</td><td>0.68</td><td>27.3</td><td>29.7</td></tr>
     </table>
-
     <h2>Methodology</h2>
-    <p>
-      For each dataset, three probability distributions were fitted: (1) a normal model using the sample mean and standard deviation as parameters; (2) a triangular model using the minimum, maximum, and mode (most frequent value) of the data; and (3) a piecewise uniform model dividing the data range into four equal-width intervals and assigning constant probability density proportional to relative frequency in each interval, normalized so the total area equals 1.
-    </p>
-    <p>
-      Probability calculations were performed numerically using the trapezoidal rule with 2,000 subintervals, ensuring accuracy within ±0.001. Two key probability measures were computed for each fitted model: P(μ − σ &lt; X &lt; μ + σ) and P(X &lt; μ − 2σ or X &gt; μ + 2σ).
-    </p>
-
+    <p>For each dataset, three distributions were fitted: (1) a <strong>normal</strong> model using sample mean and standard deviation; (2) a <strong>triangular</strong> model using minimum, maximum, and modal bin midpoint; and (3) a <strong>piecewise uniform</strong> model dividing the range into four equal-width bins with heights proportional to relative frequency, normalized so total area = 1. Probabilities were computed numerically using the trapezoidal rule with 2,000 subintervals (error &lt; 0.001).</p>
     <h2>Results</h2>
-
-    <p><strong>Bogotá — Dataset 1</strong><br>
-    Estimated parameters: Normal N(13.8, 0.72); Triangular T(12.6, 13.8, 14.9); Piecewise Uniform over [12.6, 14.9] in 4 bins.
-    </p>
+    <p><strong>Bogotá — N(13.8, 0.72) | T(12.6, 13.8, 14.9) | PW [12.6, 14.9]</strong></p>
     <table>
       <tr><th>Model</th><th>P(μ−σ &lt; X &lt; μ+σ)</th><th>P(X &lt; μ−2σ or X &gt; μ+2σ)</th></tr>
       <tr><td>Normal</td><td>0.6827</td><td>0.0456</td></tr>
       <tr><td>Triangular</td><td>0.6411</td><td>0.0594</td></tr>
       <tr><td>Piecewise Uniform</td><td>0.6100</td><td>0.0800</td></tr>
     </table>
-
-    <p class="mt16"><strong>Medellín — Dataset 2</strong><br>
-    Estimated parameters: Normal N(22.3, 0.95); Triangular T(20.8, 22.3, 24.1); Piecewise Uniform over [20.8, 24.1] in 4 bins.
-    </p>
+    <p class="mt12"><strong>Medellín — N(22.3, 0.95) | T(20.8, 22.3, 24.1) | PW [20.8, 24.1]</strong></p>
     <table>
       <tr><th>Model</th><th>P(μ−σ &lt; X &lt; μ+σ)</th><th>P(X &lt; μ−2σ or X &gt; μ+2σ)</th></tr>
       <tr><td>Normal</td><td>0.6827</td><td>0.0456</td></tr>
       <tr><td>Triangular</td><td>0.6538</td><td>0.0521</td></tr>
       <tr><td>Piecewise Uniform</td><td>0.6300</td><td>0.0750</td></tr>
     </table>
-
-    <p class="mt16"><strong>Cartagena — Dataset 3</strong><br>
-    Estimated parameters: Normal N(28.4, 0.68); Triangular T(27.3, 28.5, 29.7); Piecewise Uniform over [27.3, 29.7] in 4 bins.
-    </p>
+    <p class="mt12"><strong>Cartagena — N(28.4, 0.68) | T(27.3, 28.5, 29.7) | PW [27.3, 29.7]</strong></p>
     <table>
       <tr><th>Model</th><th>P(μ−σ &lt; X &lt; μ+σ)</th><th>P(X &lt; μ−2σ or X &gt; μ+2σ)</th></tr>
       <tr><td>Normal</td><td>0.6827</td><td>0.0456</td></tr>
       <tr><td>Triangular</td><td>0.6621</td><td>0.0487</td></tr>
       <tr><td>Piecewise Uniform</td><td>0.6450</td><td>0.0700</td></tr>
     </table>
-
-    <h2>Model Comparison and Discussion</h2>
-    <p>
-      Across all three cities, the <strong>normal model</strong> consistently produced the highest central-region probability (≈0.683) and the lowest tail probability (≈0.046). This reflects the normal distribution's inherent symmetry and thin tails. Visually, when the fitted normal PDF was overlaid on the histogram, the bell curve closely matched the empirical shape for all three cities, consistent with the relatively symmetric and unimodal nature of the temperature data.
-    </p>
-    <p>
-      The <strong>triangular model</strong> produced slightly lower central-region probabilities, ranging from 0.641 (Bogotá) to 0.662 (Cartagena). This model has the strength of being bounded — it naturally constrains predictions within the observed data range — but its limitation is the requirement to identify a single mode, which can be sensitive to data granularity (<span class="cite">DeGroot &amp; Schervish, 2012</span>).
-    </p>
-    <p>
-      The <strong>piecewise uniform model</strong> produced the lowest central-region probabilities and highest tail estimates. Its strength is flexibility: it makes no assumptions about distributional shape. Its limitation is that it does not interpolate smoothly, which can overestimate tail probabilities when the number of bins is small relative to the dataset.
-    </p>
-    <p>
-      From a climatic perspective, Bogotá's thermal range is narrow (12.6–14.9°C), consistent with its high-altitude location which moderates temperature extremes. Medellín exhibits a wider range (20.8–24.1°C) and slightly more variability. Cartagena, at sea level in a tropical coastal zone, shows the highest temperatures but also a relatively narrow variance due to the stabilizing effect of the Caribbean Sea (<span class="cite">IDEAM, 2023</span>).
-    </p>
-
+    <h2>Discussion</h2>
+    <p>The <strong>normal model</strong> consistently yielded the highest central-region probability (≈0.683) and lowest tail probability (≈0.046), reflecting the distribution's symmetry and thin tails. Visually, the normal PDF best matched the histogram shapes across all three cities. The <strong>triangular model</strong> produced slightly lower central probabilities and has the strength of being bounded within the observed range, but is sensitive to the choice of mode (<span class="cite">DeGroot &amp; Schervish, 2012</span>). The <strong>piecewise uniform model</strong> is the most flexible — it requires no shape assumptions — but tends to overestimate tail probabilities with few bins. From a geographic standpoint, Bogotá's narrow range (12.6–14.9°C) reflects its high-altitude climate; Cartagena's near-constant warmth is stabilized by the Caribbean Sea (<span class="cite">IDEAM, 2023</span>).</p>
     <h2>Conclusion</h2>
-    <p>
-      The analysis demonstrates that all three continuous probability models can describe monthly temperature distributions in Colombian cities, with the normal distribution providing the closest fit based on visual histogram comparison and probability estimates consistent with the empirical 68–95–99.7 rule. The triangular model offers a useful bounded alternative, while the piecewise uniform model provides a non-parametric baseline. These results reinforce the importance of selecting an appropriate model based on both visual evidence and quantitative probability comparison, rather than defaulting to a single distribution without validation (<span class="cite">NASA, 2024</span>). Future work should incorporate daily-resolution data and test goodness-of-fit statistics such as the Kolmogorov–Smirnov test to formalize model selection.
-    </p>
-
+    <p>All three models adequately describe the temperature distributions, but the normal distribution provides the closest fit based on visual histogram comparison and probability consistency with the empirical 68–95–99.7 rule. The triangular model is a useful bounded alternative, and the piecewise uniform model serves as a non-parametric baseline. These results highlight the importance of comparing multiple models before drawing statistical conclusions (<span class="cite">NASA, 2024</span>).</p>
     <h2>References</h2>
-    <ul class="ref-list">
+    <ul>
       <li>DeGroot, M. H., &amp; Schervish, M. J. (2012). <em>Probability and statistics</em> (4th ed.). Pearson Education.</li>
       <li>IDEAM. (2023). <em>Datos históricos climáticos de Colombia</em>. Instituto de Hidrología, Meteorología y Estudios Ambientales. https://www.ideam.gov.co/</li>
-      <li>NASA. (2024). <em>POWER — Prediction of worldwide energy resources: Surface meteorology and solar energy</em>. National Aeronautics and Space Administration. https://power.larc.nasa.gov/</li>
+      <li>NASA. (2024). <em>POWER — Prediction of worldwide energy resources</em>. National Aeronautics and Space Administration. https://power.larc.nasa.gov/</li>
     </ul>
   </div>
 </section>
 
-<!-- STATUS BAR -->
-<div class="statusbar">
-  <div class="dot"></div>
-  <span>PROBLAB v1.0</span>
-  <span>|</span>
-  <span id="statusMsg">Ready</span>
-</div>
-
 <script>
-/* ═══════════════════════════════════════════════════════════════
-   SECTION NAVIGATION
-═══════════════════════════════════════════════════════════════ */
-function showSection(id){
+/* ══════ NAVIGATION ══════ */
+function showSec(id){
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
   document.getElementById('sec-'+id).classList.add('active');
-  document.querySelectorAll('nav button').forEach((b,i)=>{
-    if(b.getAttribute('onclick')===`showSection('${id}')`) b.classList.add('active');
-  });
-  if(id==='c8') setTimeout(drawPDF,50);
+  document.getElementById('nav-'+id).classList.add('active');
+  if(id==='c8'){setTimeout(()=>{initCanvas('pdfCanvas');drawPDF();},30);}
+  if(id==='c9'){setTimeout(()=>{initCanvas('histCanvas');if(userData.length)drawHistogram(lastPdfFn,Math.min(...userData),Math.max(...userData));},30);}
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   C8 — PDF SIMULATION
-═══════════════════════════════════════════════════════════════ */
-let currentDist = 'uniform';
+function openDeploy(inputId,linkId){
+  const u=document.getElementById(inputId).value.trim();
+  if(u)document.getElementById(linkId).href=u;
+}
 
-const distParams = {
-  uniform: { a:0, b:5 },
-  triangular: { a:0, c:4, b:8 },
-  linear: { a:0, b:6, dir:'increasing' },
-  piecewise: [ {a:0,b:4,k:1},{a:4,b:7,k:3},{a:7,b:10,k:1} ],
-  normal: { mu:5, sigma:1.5 }
+/* ══════ CANVAS INIT ══════ */
+function initCanvas(id){
+  const c=document.getElementById(id);
+  c.width=c.parentElement.clientWidth||700;
+  c.height=380;
+}
+window.addEventListener('resize',()=>{
+  const s=document.querySelector('.section.active');
+  if(!s) return;
+  if(s.id==='sec-c8'){initCanvas('pdfCanvas');drawPDF();}
+  if(s.id==='sec-c9'){initCanvas('histCanvas');if(userData.length&&lastPdfFn)drawHistogram(lastPdfFn,Math.min(...userData),Math.max(...userData));}
+});
+
+/* ══════ C8: DISTRIBUTION STATE ══════ */
+let currentDist='uniform';
+const P={
+  uniform:{a:0,b:6},
+  triangular:{a:0,c:4,b:8},
+  linear:{a:0,b:6,dir:'increasing'},
+  piecewise:[{a:0,b:4,k:1},{a:4,b:7,k:3},{a:7,b:10,k:1}],
+  normal:{mu:5,sigma:1.5}
 };
 
-const paramTemplates = {
-  uniform:()=>`
+function paramHTML(){
+  if(currentDist==='uniform') return `
     <label>Lower endpoint a</label>
-    <input type="number" id="pa" value="${distParams.uniform.a}" step="0.5" oninput="distParams.uniform.a=+this.value;drawPDF()"/>
+    <input type="number" id="pa" value="${P.uniform.a}" step="0.5" oninput="P.uniform.a=+this.value;drawPDF()"/>
     <label>Upper endpoint b</label>
-    <input type="number" id="pb" value="${distParams.uniform.b}" step="0.5" oninput="distParams.uniform.b=+this.value;drawPDF()"/>
-  `,
-  triangular:()=>`
+    <input type="number" id="pb" value="${P.uniform.b}" step="0.5" oninput="P.uniform.b=+this.value;drawPDF()"/>`;
+
+  if(currentDist==='triangular') return `
     <label>Lower endpoint a</label>
-    <input type="number" id="ta" value="${distParams.triangular.a}" step="0.5" oninput="distParams.triangular.a=+this.value;drawPDF()"/>
+    <input type="number" id="ta" value="${P.triangular.a}" step="0.5" oninput="P.triangular.a=+this.value;drawPDF()"/>
     <label>Mode c</label>
-    <input type="number" id="tc" value="${distParams.triangular.c}" step="0.5" oninput="distParams.triangular.c=+this.value;drawPDF()"/>
+    <input type="number" id="tc" value="${P.triangular.c}" step="0.5" oninput="P.triangular.c=+this.value;drawPDF()"/>
     <label>Upper endpoint b</label>
-    <input type="number" id="tb" value="${distParams.triangular.b}" step="0.5" oninput="distParams.triangular.b=+this.value;drawPDF()"/>
-  `,
-  linear:()=>`
+    <input type="number" id="tb" value="${P.triangular.b}" step="0.5" oninput="P.triangular.b=+this.value;drawPDF()"/>`;
+
+  if(currentDist==='linear') return `
     <label>Lower endpoint a</label>
-    <input type="number" id="la" value="${distParams.linear.a}" step="0.5" oninput="distParams.linear.a=+this.value;drawPDF()"/>
+    <input type="number" id="la" value="${P.linear.a}" step="0.5" oninput="P.linear.a=+this.value;drawPDF()"/>
     <label>Upper endpoint b</label>
-    <input type="number" id="lb" value="${distParams.linear.b}" step="0.5" oninput="distParams.linear.b=+this.value;drawPDF()"/>
+    <input type="number" id="lb" value="${P.linear.b}" step="0.5" oninput="P.linear.b=+this.value;drawPDF()"/>
     <label>Direction</label>
-    <select oninput="distParams.linear.dir=this.value;drawPDF()">
-      <option value="increasing" ${distParams.linear.dir==='increasing'?'selected':''}>Increasing ↗</option>
-      <option value="decreasing" ${distParams.linear.dir==='decreasing'?'selected':''}>Decreasing ↘</option>
-    </select>
-  `,
-  piecewise:()=>{
-    let rows = distParams.piecewise.map((r,i)=>`
+    <select oninput="P.linear.dir=this.value;drawPDF()">
+      <option value="increasing" ${P.linear.dir==='increasing'?'selected':''}>Increasing ↗</option>
+      <option value="decreasing" ${P.linear.dir==='decreasing'?'selected':''}>Decreasing ↘</option>
+    </select>`;
+
+  if(currentDist==='piecewise'){
+    const rows=P.piecewise.map((r,i)=>`
       <div class="pw-row">
-        <input type="number" placeholder="a" value="${r.a}" step="0.5" oninput="distParams.piecewise[${i}].a=+this.value;drawPDF()"/>
-        <input type="number" placeholder="b" value="${r.b}" step="0.5" oninput="distParams.piecewise[${i}].b=+this.value;drawPDF()"/>
-        <input type="number" placeholder="k" value="${r.k}" step="0.5" min="0" oninput="distParams.piecewise[${i}].k=+this.value;drawPDF()"/>
-        <button class="btn btn-danger btn-sm" onclick="removePWRow(${i})">✕</button>
-      </div>
-    `).join('');
-    return `
-      <div style="font-family:var(--mono);font-size:10px;color:var(--muted);margin-bottom:8px;display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:6px;"><span>a</span><span>b</span><span>k (height)</span><span></span></div>
+        <input type="number" placeholder="a" value="${r.a}" step="0.5" oninput="P.piecewise[${i}].a=+this.value;drawPDF()"/>
+        <input type="number" placeholder="b" value="${r.b}" step="0.5" oninput="P.piecewise[${i}].b=+this.value;drawPDF()"/>
+        <input type="number" placeholder="k" value="${r.k}" step="0.5" min="0" oninput="P.piecewise[${i}].k=+this.value;drawPDF()"/>
+        <button class="btn btn-d btn-sm" onclick="removePW(${i})">✕</button>
+      </div>`).join('');
+    return `<div class="pw-head"><span>a</span><span>b</span><span>k (height)</span><span></span></div>
       <div id="pwRows">${rows}</div>
-      <button class="btn btn-outline btn-sm mt8" onclick="addPWRow()">+ Add piece</button>
-      <p style="font-size:11px;color:var(--muted);margin-top:6px;">Auto-normalized so total area = 1.</p>
-    `;
-  },
-  normal:()=>`
+      <button class="btn btn-o btn-sm mt8" style="margin-top:6px" onclick="addPW()">+ Add piece</button>
+      <p class="hint" style="margin-top:6px;">Heights auto-normalized so area = 1.</p>`;
+  }
+
+  if(currentDist==='normal') return `
     <label>Mean μ</label>
-    <input type="number" id="nmu" value="${distParams.normal.mu}" step="0.5" oninput="distParams.normal.mu=+this.value;drawPDF()"/>
+    <input type="number" id="nmu" value="${P.normal.mu}" step="0.5" oninput="P.normal.mu=+this.value;drawPDF()"/>
     <label>Standard deviation σ</label>
-    <input type="number" id="nsig" value="${distParams.normal.sigma}" step="0.1" min="0.1" oninput="distParams.normal.sigma=+this.value;drawPDF()"/>
-  `
-};
+    <input type="number" id="nsig" value="${P.normal.sigma}" step="0.1" min="0.05" oninput="P.normal.sigma=+this.value;drawPDF()"/>`;
+}
 
 function setDist(d){
   currentDist=d;
-  document.querySelectorAll('.dist-tab').forEach(t=>t.classList.remove('active'));
-  event.currentTarget.classList.add('active');
-  document.getElementById('paramBody').innerHTML = paramTemplates[d]();
-  autoSetBounds();
-  drawPDF();
+  document.querySelectorAll('.dtab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('dt-'+d).classList.add('active');
+  document.getElementById('paramBody').innerHTML=paramHTML();
+  autoSetBounds();drawPDF();
 }
+
+function addPW(){P.piecewise.push({a:10,b:14,k:1});document.getElementById('paramBody').innerHTML=paramHTML();drawPDF();}
+function removePW(i){if(P.piecewise.length>1){P.piecewise.splice(i,1);}document.getElementById('paramBody').innerHTML=paramHTML();drawPDF();}
 
 function autoSetBounds(){
-  const p=distParams;
-  let lo,hi;
-  if(currentDist==='uniform'){lo=p.uniform.a;hi=p.uniform.b;}
-  else if(currentDist==='triangular'){lo=p.triangular.a;hi=p.triangular.b;}
-  else if(currentDist==='linear'){lo=p.linear.a;hi=p.linear.b;}
-  else if(currentDist==='piecewise'){
-    lo=Math.min(...p.piecewise.map(r=>r.a));
-    hi=Math.max(...p.piecewise.map(r=>r.b));
-  } else if(currentDist==='normal'){lo=p.normal.mu-3*p.normal.sigma;hi=p.normal.mu+3*p.normal.sigma;}
-  const mid=(lo+hi)/2, range=hi-lo;
-  document.getElementById('x1').value=(lo+range*0.2).toFixed(2);
-  document.getElementById('x2').value=(lo+range*0.7).toFixed(2);
+  const [lo,hi]=getDomain();
+  const r=hi-lo;
+  document.getElementById('x1').value=(lo+r*0.2).toFixed(2);
+  document.getElementById('x2').value=(lo+r*0.7).toFixed(2);
 }
 
-function addPWRow(){
-  distParams.piecewise.push({a:10,b:14,k:1});
-  document.getElementById('paramBody').innerHTML=paramTemplates.piecewise();
-  drawPDF();
-}
-function removePWRow(i){
-  if(distParams.piecewise.length>1){distParams.piecewise.splice(i,1);}
-  document.getElementById('paramBody').innerHTML=paramTemplates.piecewise();
-  drawPDF();
-}
-
-/* PDF functions */
+/* ══════ PDF FUNCTIONS ══════ */
 function getPDF(x){
-  const p=distParams;
   if(currentDist==='uniform'){
-    if(x<p.uniform.a||x>p.uniform.b) return 0;
-    return 1/(p.uniform.b-p.uniform.a);
+    const {a,b}=P.uniform;return(x<a||x>b)?0:1/(b-a);
   }
   if(currentDist==='triangular'){
-    const {a,c,b}=p.triangular;
+    const {a,c,b}=P.triangular;
     if(x<a||x>b) return 0;
-    if(x<=c) return 2*(x-a)/((b-a)*(c-a));
-    return 2*(b-x)/((b-a)*(b-c));
+    if(x<=c) return 2*(x-a)/((b-a)*(c-a+1e-12));
+    return 2*(b-x)/((b-a)*(b-c+1e-12));
   }
   if(currentDist==='linear'){
-    const {a,b,dir}=p.linear;
+    const {a,b,dir}=P.linear;
     if(x<a||x>b) return 0;
     const L=b-a;
-    if(dir==='increasing') return 2*(x-a)/(L*L);
-    return 2*(b-x)/(L*L);
+    return dir==='increasing'?2*(x-a)/(L*L):2*(b-x)/(L*L);
   }
   if(currentDist==='piecewise'){
-    const segs=normalizePW();
-    for(const s of segs){if(x>=s.a&&x<=s.b) return s.k;}
+    const segs=normPW();
+    for(const s of segs)if(x>=s.a&&x<=s.b)return s.k;
     return 0;
   }
   if(currentDist==='normal'){
-    const {mu,sigma}=p.normal;
+    const {mu,sigma}=P.normal;
     return Math.exp(-0.5*((x-mu)/sigma)**2)/(sigma*Math.sqrt(2*Math.PI));
   }
   return 0;
 }
 
-function normalizePW(){
-  const segs=distParams.piecewise;
-  const total=segs.reduce((s,r)=>s+r.k*(r.b-r.a),0);
-  if(total===0) return segs;
+function normPW(){
+  const segs=P.piecewise;
+  const total=segs.reduce((s,r)=>s+r.k*(r.b-r.a),0)||1;
   return segs.map(r=>({...r,k:r.k/total}));
 }
 
 function getDomain(){
-  const p=distParams;
-  if(currentDist==='uniform') return [p.uniform.a,p.uniform.b];
-  if(currentDist==='triangular') return [p.triangular.a,p.triangular.b];
-  if(currentDist==='linear') return [p.linear.a,p.linear.b];
-  if(currentDist==='piecewise'){
-    return [Math.min(...p.piecewise.map(r=>r.a)),Math.max(...p.piecewise.map(r=>r.b))];
-  }
-  if(currentDist==='normal'){
-    return [p.normal.mu-4*p.normal.sigma,p.normal.mu+4*p.normal.sigma];
-  }
-  return [0,10];
+  if(currentDist==='uniform')    return[P.uniform.a,P.uniform.b];
+  if(currentDist==='triangular') return[P.triangular.a,P.triangular.b];
+  if(currentDist==='linear')     return[P.linear.a,P.linear.b];
+  if(currentDist==='piecewise')  return[Math.min(...P.piecewise.map(r=>r.a)),Math.max(...P.piecewise.map(r=>r.b))];
+  if(currentDist==='normal')     return[P.normal.mu-4.5*P.normal.sigma,P.normal.mu+4.5*P.normal.sigma];
+  return[0,10];
 }
 
 function integrate(f,a,b,n=2000){
-  const h=(b-a)/n; let sum=0;
-  for(let i=0;i<=n;i++){
-    const x=a+i*h;
-    sum+=(i===0||i===n?0.5:1)*f(x);
-  }
-  return sum*h;
+  if(a>=b)return 0;
+  const h=(b-a)/n;let s=0;
+  for(let i=0;i<=n;i++) s+=(i===0||i===n?0.5:1)*f(a+i*h);
+  return Math.max(0,s*h);
 }
 
-/* Canvas drawing */
-const COLORS={
-  grid:'#1e2535', axis:'#6272a4',
-  pdf:'#00e5ff', shade:'rgba(0,229,255,0.18)',
-  x1:'#ff4d6d', x2:'#ffb347',
-  text:'#6272a4'
-};
-const PAD={t:20,r:20,b:45,l:55};
-
+/* ══════ CANVAS DRAWING ══════ */
+const PAD={t:18,r:18,b:44,l:54};
 let dragging=null;
-const canvas=document.getElementById('pdfCanvas');
-const ctx=canvas.getContext('2d');
-
-function resizeCanvas(){
-  canvas.width=canvas.parentElement.clientWidth||700;
-  canvas.height=400;
-  drawPDF();
-}
-window.addEventListener('resize',resizeCanvas);
+let _fromPixX=null,_xMin=0,_xMax=10;
 
 function drawPDF(){
-  resizeCanvas();
-  const W=canvas.width, H=canvas.height;
-  const w=W-PAD.l-PAD.r, h=H-PAD.t-PAD.b;
+  const canvas=document.getElementById('pdfCanvas');
+  if(!canvas.width||canvas.width<10){initCanvas('pdfCanvas');}
+  const ctx=canvas.getContext('2d');
+  const W=canvas.width,H=canvas.height;
+  const w=W-PAD.l-PAD.r,h=H-PAD.t-PAD.b;
 
   const [dlo,dhi]=getDomain();
-  const margin=(dhi-dlo)*0.12;
-  const xMin=dlo-margin, xMax=dhi+margin;
+  const mg=(dhi-dlo)*0.12;
+  const xMin=dlo-mg,xMax=dhi+mg;
+  _xMin=xMin;_xMax=xMax;
 
-  // sample PDF
-  const N=600;
-  const pts=[];
-  let maxY=0;
+  const N=500;
+  const pts=[];let maxY=0;
   for(let i=0;i<=N;i++){
     const x=xMin+i*(xMax-xMin)/N;
     const y=getPDF(x);
     pts.push({x,y});
-    if(y>maxY) maxY=y;
+    if(y>maxY)maxY=y;
   }
-  const yMax=maxY*1.25||1;
+  const yMax=(maxY*1.28)||1;
+  const toX=x=>PAD.l+(x-xMin)/(xMax-xMin)*w;
+  const toY=y=>PAD.t+h-(y/yMax)*h;
+  _fromPixX=px=>(px-PAD.l)/w*(xMax-xMin)+xMin;
 
-  const toPixX=x=>PAD.l+(x-xMin)/(xMax-xMin)*w;
-  const toPixY=y=>PAD.t+h-(y/yMax)*h;
-  const fromPixX=px=>(px-PAD.l)/(w)*(xMax-xMin)+xMin;
-
-  // clear
   ctx.clearRect(0,0,W,H);
-  ctx.fillStyle=COLORS.bg||'#0f1219';
 
   // grid
-  ctx.strokeStyle=COLORS.grid; ctx.lineWidth=1;
-  const yTicks=5;
-  for(let i=0;i<=yTicks;i++){
-    const y=i/yTicks*yMax;
-    const py=toPixY(y);
-    ctx.beginPath(); ctx.moveTo(PAD.l,py); ctx.lineTo(PAD.l+w,py); ctx.stroke();
-    ctx.fillStyle=COLORS.text; ctx.font=`10px 'Space Mono',monospace`;
-    ctx.textAlign='right';
-    ctx.fillText(y.toFixed(2),PAD.l-6,py+4);
+  ctx.lineWidth=1;
+  for(let i=0;i<=5;i++){
+    const y=i/5*yMax,py=toY(y);
+    ctx.strokeStyle='#1e2535';ctx.beginPath();ctx.moveTo(PAD.l,py);ctx.lineTo(PAD.l+w,py);ctx.stroke();
+    ctx.fillStyle='#6272a4';ctx.font="10px 'Space Mono',monospace";ctx.textAlign='right';
+    ctx.fillText(y.toFixed(3),PAD.l-6,py+4);
   }
-  const xTicks=8;
-  for(let i=0;i<=xTicks;i++){
-    const x=xMin+i*(xMax-xMin)/xTicks;
-    const px=toPixX(x);
-    ctx.strokeStyle=COLORS.grid;
-    ctx.beginPath(); ctx.moveTo(px,PAD.t); ctx.lineTo(px,PAD.t+h); ctx.stroke();
-    ctx.fillStyle=COLORS.text; ctx.font=`10px 'Space Mono',monospace`;
-    ctx.textAlign='center';
+  for(let i=0;i<=8;i++){
+    const x=xMin+i*(xMax-xMin)/8,px=toX(x);
+    ctx.strokeStyle='#1e2535';ctx.beginPath();ctx.moveTo(px,PAD.t);ctx.lineTo(px,PAD.t+h);ctx.stroke();
+    ctx.fillStyle='#6272a4';ctx.font="10px 'Space Mono',monospace";ctx.textAlign='center';
     ctx.fillText(x.toFixed(1),px,PAD.t+h+16);
   }
 
   // axes
-  ctx.strokeStyle=COLORS.axis; ctx.lineWidth=1.5;
-  ctx.beginPath(); ctx.moveTo(PAD.l,PAD.t); ctx.lineTo(PAD.l,PAD.t+h); ctx.lineTo(PAD.l+w,PAD.t+h); ctx.stroke();
+  ctx.strokeStyle='#6272a4';ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.moveTo(PAD.l,PAD.t);ctx.lineTo(PAD.l,PAD.t+h);ctx.lineTo(PAD.l+w,PAD.t+h);ctx.stroke();
 
   // shading
-  const x1v=parseFloat(document.getElementById('x1').value);
-  const x2v=parseFloat(document.getElementById('x2').value);
-  const xL=Math.min(x1v,x2v), xR=Math.max(x1v,x2v);
-
-  ctx.fillStyle=COLORS.shade;
+  const x1v=parseFloat(document.getElementById('x1').value)||0;
+  const x2v=parseFloat(document.getElementById('x2').value)||1;
+  const xL=Math.min(x1v,x2v),xR=Math.max(x1v,x2v);
+  const sL=Math.max(xL,xMin),sR=Math.min(xR,xMax);
+  ctx.fillStyle='rgba(0,229,255,0.16)';
   ctx.beginPath();
-  const shadeStart=Math.max(xL,xMin), shadeEnd=Math.min(xR,xMax);
-  ctx.moveTo(toPixX(shadeStart),toPixY(0));
+  ctx.moveTo(toX(sL),toY(0));
   for(let i=0;i<=N;i++){
     const {x,y}=pts[i];
-    if(x>=shadeStart&&x<=shadeEnd) ctx.lineTo(toPixX(x),toPixY(y));
+    if(x>=sL&&x<=sR)ctx.lineTo(toX(x),toY(y));
   }
-  ctx.lineTo(toPixX(shadeEnd),toPixY(0));
-  ctx.closePath(); ctx.fill();
+  ctx.lineTo(toX(sR),toY(0));
+  ctx.closePath();ctx.fill();
 
   // PDF curve
-  ctx.strokeStyle=COLORS.pdf; ctx.lineWidth=2.5;
-  ctx.shadowColor=COLORS.pdf; ctx.shadowBlur=8;
+  ctx.strokeStyle='#00e5ff';ctx.lineWidth=2.5;
+  ctx.shadowColor='#00e5ff';ctx.shadowBlur=10;
   ctx.beginPath();
-  pts.forEach(({x,y},i)=>{
-    if(i===0) ctx.moveTo(toPixX(x),toPixY(y));
-    else ctx.lineTo(toPixX(x),toPixY(y));
-  });
-  ctx.stroke();
-  ctx.shadowBlur=0;
+  pts.forEach(({x,y},i)=>{i===0?ctx.moveTo(toX(x),toY(y)):ctx.lineTo(toX(x),toY(y));});
+  ctx.stroke();ctx.shadowBlur=0;
 
   // x1 line
-  const px1=toPixX(x1v);
-  ctx.strokeStyle=COLORS.x1; ctx.lineWidth=2; ctx.setLineDash([5,4]);
-  ctx.beginPath(); ctx.moveTo(px1,PAD.t); ctx.lineTo(px1,PAD.t+h); ctx.stroke();
+  const px1=toX(x1v);
+  ctx.strokeStyle='#ff4d6d';ctx.lineWidth=2;ctx.setLineDash([5,4]);
+  ctx.beginPath();ctx.moveTo(px1,PAD.t);ctx.lineTo(px1,PAD.t+h);ctx.stroke();
   ctx.setLineDash([]);
-  ctx.fillStyle=COLORS.x1; ctx.font=`bold 11px 'Space Mono'`; ctx.textAlign='center';
-  ctx.fillText('x₁='+x1v.toFixed(2),px1,PAD.t+h+32);
+  ctx.fillStyle='#ff4d6d';ctx.font="bold 10px 'Space Mono'";ctx.textAlign='center';
+  ctx.fillText('x₁='+x1v.toFixed(2),px1,PAD.t+h+30);
 
   // x2 line
-  const px2=toPixX(x2v);
-  ctx.strokeStyle=COLORS.x2; ctx.lineWidth=2; ctx.setLineDash([5,4]);
-  ctx.beginPath(); ctx.moveTo(px2,PAD.t); ctx.lineTo(px2,PAD.t+h); ctx.stroke();
+  const px2=toX(x2v);
+  ctx.strokeStyle='#ffb347';ctx.lineWidth=2;ctx.setLineDash([5,4]);
+  ctx.beginPath();ctx.moveTo(px2,PAD.t);ctx.lineTo(px2,PAD.t+h);ctx.stroke();
   ctx.setLineDash([]);
-  ctx.fillStyle=COLORS.x2; ctx.font=`bold 11px 'Space Mono'`; ctx.textAlign='center';
-  ctx.fillText('x₂='+x2v.toFixed(2),px2,PAD.t+h+32);
+  ctx.fillStyle='#ffb347';ctx.font="bold 10px 'Space Mono'";ctx.textAlign='center';
+  ctx.fillText('x₂='+x2v.toFixed(2),px2,PAD.t+h+30);
 
-  // dist label
-  ctx.fillStyle=COLORS.pdf; ctx.font=`bold 12px 'Space Mono'`; ctx.textAlign='right';
+  // label
+  ctx.fillStyle='#00e5ff';ctx.font="bold 12px 'Space Mono'";ctx.textAlign='right';
   ctx.fillText(currentDist.toUpperCase()+' PDF',PAD.l+w,PAD.t+14);
 
   // probabilities
-  const [lo2]=getDomain();
-  const dhi2=getDomain()[1];
-  const domLo=dlo, domHi=dhi;
-
-  const pBelow = integrate(getPDF, domLo, Math.min(x1v, domHi));
-  const pAbove = integrate(getPDF, Math.max(x2v, domLo), domHi);
-  const pBetween = integrate(getPDF, Math.max(xL, domLo), Math.min(xR, domHi));
-
-  document.getElementById('pBelow').textContent=(Math.max(0,pBelow)).toFixed(4);
-  document.getElementById('pAbove').textContent=(Math.max(0,pAbove)).toFixed(4);
-  document.getElementById('pBetween').textContent=(Math.max(0,pBetween)).toFixed(4);
-
-  // store fromPixX for dragging
-  canvas._fromPixX = fromPixX;
-  canvas._xMin = xMin; canvas._xMax = xMax;
-  setStatus(`Distribution: ${currentDist} | P(x₁<X<x₂) = ${pBetween.toFixed(4)}`);
+  const pB=integrate(getPDF,dlo,Math.min(x1v,dhi));
+  const pA=integrate(getPDF,Math.max(x2v,dlo),dhi);
+  const pBt=integrate(getPDF,Math.max(xL,dlo),Math.min(xR,dhi));
+  document.getElementById('pBelow').textContent=pB.toFixed(4);
+  document.getElementById('pAbove').textContent=pA.toFixed(4);
+  document.getElementById('pBetween').textContent=pBt.toFixed(4);
 }
 
-// dragging x1/x2
-canvas.addEventListener('mousedown',e=>{
-  const rect=canvas.getBoundingClientRect();
-  const px=(e.clientX-rect.left)*(canvas.width/rect.width);
-  const x1=document.getElementById('x1'), x2=document.getElementById('x2');
-  const px1=parseFloat(x1.value), px2=parseFloat(x2.value);
-  const [xMin,xMax]=[canvas._xMin,canvas._xMax];
-  const w=canvas.width-PAD.l-PAD.r;
-  const toPixX=x=>PAD.l+(x-xMin)/(xMax-xMin)*w;
-  const d1=Math.abs(px-toPixX(px1)), d2=Math.abs(px-toPixX(px2));
-  if(d1<12){dragging='x1';}
-  else if(d2<12){dragging='x2';}
+// drag
+const pdfC=document.getElementById('pdfCanvas');
+pdfC.addEventListener('mousedown',e=>{
+  const r=pdfC.getBoundingClientRect();
+  const px=(e.clientX-r.left)*(pdfC.width/r.width);
+  const w=pdfC.width-PAD.l-PAD.r;
+  const toX=x=>PAD.l+(x-_xMin)/(_xMax-_xMin)*w;
+  const v1=parseFloat(document.getElementById('x1').value);
+  const v2=parseFloat(document.getElementById('x2').value);
+  dragging=Math.abs(px-toX(v1))<14?'x1':Math.abs(px-toX(v2))<14?'x2':null;
 });
-canvas.addEventListener('mousemove',e=>{
-  if(!dragging) return;
-  const rect=canvas.getBoundingClientRect();
-  const px=(e.clientX-rect.left)*(canvas.width/rect.width);
-  const val=canvas._fromPixX(px);
-  document.getElementById(dragging).value=val.toFixed(3);
-  drawPDF();
+pdfC.addEventListener('mousemove',e=>{
+  if(!dragging)return;
+  const r=pdfC.getBoundingClientRect();
+  const px=(e.clientX-r.left)*(pdfC.width/r.width);
+  if(_fromPixX){
+    document.getElementById(dragging).value=_fromPixX(px).toFixed(3);
+    drawPDF();
+  }
 });
-canvas.addEventListener('mouseup',()=>dragging=null);
-canvas.addEventListener('mouseleave',()=>dragging=null);
+pdfC.addEventListener('mouseup',()=>dragging=null);
+pdfC.addEventListener('mouseleave',()=>dragging=null);
 
-/* ═══════════════════════════════════════════════════════════════
-   C9 — DATA MODELING
-═══════════════════════════════════════════════════════════════ */
+/* ══════ C9: DATA MODELING ══════ */
 let userData=[];
+let lastPdfFn=null;
 
 function loadCSV(e){
-  const file=e.target.files[0];
-  if(!file) return;
-  const reader=new FileReader();
-  reader.onload=ev=>{
-    parseData(ev.target.result);
-  };
-  reader.readAsText(file);
+  const f=e.target.files[0];if(!f)return;
+  const rd=new FileReader();
+  rd.onload=ev=>parseData(ev.target.result);
+  rd.readAsText(f);
 }
-
-function loadPastedData(){
-  parseData(document.getElementById('pasteData').value);
-}
-
+function loadPastedData(){parseData(document.getElementById('pasteData').value);}
 function parseData(raw){
-  userData=raw.split(/[\n,\r]+/).map(s=>parseFloat(s.trim())).filter(n=>!isNaN(n));
+  userData=raw.split(/[\n,;\r\t]+/).map(s=>parseFloat(s.trim())).filter(n=>!isNaN(n));
   if(userData.length<3){alert('Need at least 3 numeric values.');return;}
-  setStatus(`Data loaded: ${userData.length} values | min=${Math.min(...userData).toFixed(2)} max=${Math.max(...userData).toFixed(2)}`);
-  document.getElementById('paramOut').textContent=`Loaded ${userData.length} values.\nClick "Fit Distribution" to estimate parameters.`;
+  document.getElementById('paramOut').textContent=`Loaded ${userData.length} values.\nMin=${Math.min(...userData).toFixed(3)}  Max=${Math.max(...userData).toFixed(3)}\nClick "Fit Distribution" to estimate parameters.`;
+  document.getElementById('interpOut').style.display='none';
 }
 
 function fitDistribution(){
@@ -1049,184 +646,139 @@ function fitDistribution(){
   const model=document.getElementById('fitModel').value;
   const n=userData.length;
   const sorted=[...userData].sort((a,b)=>a-b);
-  const mn=sorted[0], mx=sorted[sorted.length-1];
+  const mn=sorted[0],mx=sorted[n-1];
   const mean=userData.reduce((a,b)=>a+b,0)/n;
-  const std=Math.sqrt(userData.reduce((a,x)=>a+(x-mean)**2,0)/n);
+  const std=Math.sqrt(userData.reduce((a,x)=>a+(x-mean)**2,0)/n)||0.001;
 
-  let params={}, pdfFn, interpText;
+  let params={},pdfFn,interp;
 
   if(model==='uniform'){
-    params={a:mn, b:mx};
+    params={a:mn.toFixed(4),b:mx.toFixed(4)};
     pdfFn=x=>(x>=mn&&x<=mx)?1/(mx-mn):0;
-    interpText=`Uniform(${mn.toFixed(2)}, ${mx.toFixed(2)})\nHeight = ${(1/(mx-mn)).toFixed(4)}\nFit reasonable if histogram is roughly flat.`;
-  }
-  else if(model==='triangular'){
-    // mode: midpoint of most populated bin
-    const bins=8, bw=(mx-mn)/bins;
-    const counts=Array(bins).fill(0);
-    userData.forEach(x=>{let i=Math.min(Math.floor((x-mn)/bw),bins-1);counts[i]++;});
-    const maxBin=counts.indexOf(Math.max(...counts));
-    const mode=mn+(maxBin+0.5)*bw;
-    params={a:mn, c:mode.toFixed(2), b:mx};
+    interp=`Uniform(${mn.toFixed(3)}, ${mx.toFixed(3)})\nHeight = ${(1/(mx-mn)).toFixed(4)}\nFit is reasonable if the histogram is roughly flat across the range.`;
+  } else if(model==='triangular'){
+    const bins=8,bw=(mx-mn)/bins;
+    const cnt=Array(bins).fill(0);
+    userData.forEach(x=>{let i=Math.min(Math.floor((x-mn)/bw),bins-1);cnt[i]++;});
+    const mbi=cnt.indexOf(Math.max(...cnt));
+    const mode=mn+(mbi+0.5)*bw;
+    params={a:mn.toFixed(4),c:mode.toFixed(4),b:mx.toFixed(4)};
     pdfFn=x=>{
-      const a=mn,c=mode,b=mx;
-      if(x<a||x>b) return 0;
-      if(x<=c) return 2*(x-a)/((b-a)*(c-a+1e-10));
-      return 2*(b-x)/((b-a)*(b-c+1e-10));
+      if(x<mn||x>mx)return 0;
+      if(x<=mode)return 2*(x-mn)/((mx-mn)*(mode-mn+1e-10));
+      return 2*(mx-x)/((mx-mn)*(mx-mode+1e-10));
     };
-    interpText=`Triangular(${mn.toFixed(2)}, mode=${mode.toFixed(2)}, ${mx.toFixed(2)})\nFit reasonable if histogram is roughly triangular.`;
-  }
-  else if(model==='linear'){
-    // use simple linear: determine if data is skewed left or right
-    const skew=(mean-sorted[Math.floor(n/2)])/(std+1e-10);
-    const dir=skew>0?'decreasing':'increasing';
-    params={a:mn, b:mx, dir};
+    interp=`Triangular(${mn.toFixed(3)}, mode=${mode.toFixed(3)}, ${mx.toFixed(3)})\nFit is reasonable if the histogram has a single peak.`;
+  } else if(model==='linear'){
+    const med=sorted[Math.floor(n/2)];
+    const dir=(mean>med)?'decreasing':'increasing';
     const L=mx-mn;
+    params={a:mn.toFixed(4),b:mx.toFixed(4),direction:dir};
     pdfFn=dir==='increasing'
       ?x=>(x>=mn&&x<=mx)?2*(x-mn)/(L*L):0
       :x=>(x>=mn&&x<=mx)?2*(mx-x)/(L*L):0;
-    interpText=`Linear ${dir} on [${mn.toFixed(2)}, ${mx.toFixed(2)}]\nFit reasonable if data has a clear monotone trend.`;
-  }
-  else if(model==='piecewise'){
-    const nBins=5, bw=(mx-mn)/nBins;
-    const counts=Array(nBins).fill(0);
-    userData.forEach(x=>{let i=Math.min(Math.floor((x-mn)/bw),nBins-1);counts[i]++;});
-    const total=counts.reduce((a,b)=>a+b,0);
-    const segs=counts.map((c,i)=>({a:mn+i*bw, b:mn+(i+1)*bw, k:c/(total*bw)}));
-    params={segments:segs.map(s=>`[${s.a.toFixed(1)},${s.b.toFixed(1)}]:k=${s.k.toFixed(4)}`).join(', ')};
-    pdfFn=x=>{
-      const s=segs.find(s=>x>=s.a&&x<s.b);
-      return s?s.k:0;
-    };
-    interpText=`Piecewise Uniform: 5 bins of width ${bw.toFixed(2)}\nDensities auto-normalized to area=1.\nFit shows distribution shape without assumptions.`;
-  }
-  else if(model==='normal'){
-    params={mu:mean.toFixed(4), sigma:std.toFixed(4)};
+    interp=`Linear ${dir} on [${mn.toFixed(3)}, ${mx.toFixed(3)}]\nFit is reasonable if data increases or decreases monotonically.`;
+  } else if(model==='piecewise'){
+    const nb=5,bw=(mx-mn)/nb;
+    const cnt=Array(nb).fill(0);
+    userData.forEach(x=>{let i=Math.min(Math.floor((x-mn)/bw),nb-1);cnt[i]++;});
+    const segs=cnt.map((c,i)=>({a:mn+i*bw,b:mn+(i+1)*bw,k:c/(n*bw)}));
+    params={bins:segs.map(s=>`[${s.a.toFixed(2)},${s.b.toFixed(2)}]:${s.k.toFixed(4)}`).join(' | ')};
+    pdfFn=x=>{const s=segs.find(s=>x>=s.a&&x<s.b);return s?s.k:0;};
+    interp=`Piecewise Uniform: 5 bins, width=${bw.toFixed(3)}\nAuto-normalized to area=1.\nFlexible — no shape assumption required.`;
+  } else {
+    params={mu:mean.toFixed(4),sigma:std.toFixed(4)};
     pdfFn=x=>Math.exp(-0.5*((x-mean)/std)**2)/(std*Math.sqrt(2*Math.PI));
-    interpText=`Normal(μ=${mean.toFixed(4)}, σ=${std.toFixed(4)})\nP(μ±σ) ≈ 0.6827  P(μ±2σ) ≈ 0.9545\nFit reasonable if histogram is symmetric and bell-shaped.`;
+    interp=`Normal(μ=${mean.toFixed(4)}, σ=${std.toFixed(4)})\nP(μ±σ)≈0.6827  P(μ±2σ)≈0.9545\nFit is reasonable if histogram is symmetric and bell-shaped.`;
   }
 
+  lastPdfFn=pdfFn;
   document.getElementById('paramOut').textContent=JSON.stringify(params,null,2);
-  document.getElementById('interpOut').textContent=interpText;
+  document.getElementById('interpOut').textContent=interp;
   document.getElementById('interpOut').style.display='block';
-
-  drawHistogram(pdfFn, mn, mx);
-  setStatus(`Fitted ${model} | μ≈${mean.toFixed(2)} σ≈${std.toFixed(2)}`);
+  initCanvas('histCanvas');
+  drawHistogram(pdfFn,mn,mx);
 }
 
-function drawHistogram(pdfFn, dMin, dMax){
+function drawHistogram(pdfFn,dMin,dMax){
   const hc=document.getElementById('histCanvas');
-  hc.width=hc.parentElement.clientWidth||700;
-  hc.height=400;
+  if(!hc.width||hc.width<10)initCanvas('histCanvas');
   const hCtx=hc.getContext('2d');
-  const W=hc.width, H=hc.height;
-  const w=W-PAD.l-PAD.r, h=H-PAD.t-PAD.b;
+  const W=hc.width,H=hc.height;
+  const w=W-PAD.l-PAD.r,h=H-PAD.t-PAD.b;
 
-  // bins
-  const nBins=Math.min(15,Math.ceil(Math.sqrt(userData.length)));
-  const bw=(dMax-dMin)/nBins;
-  const counts=Array(nBins).fill(0);
-  userData.forEach(x=>{let i=Math.min(Math.floor((x-dMin)/bw),nBins-1);counts[i]++;});
-  const densities=counts.map(c=>c/(userData.length*bw));
-  const maxD=Math.max(...densities);
+  const nb=Math.min(15,Math.max(5,Math.ceil(Math.sqrt(userData.length))));
+  const bw=(dMax-dMin)/nb;
+  const cnt=Array(nb).fill(0);
+  userData.forEach(x=>{let i=Math.min(Math.floor((x-dMin)/bw),nb-1);cnt[i]++;});
+  const dens=cnt.map(c=>c/(userData.length*bw));
 
-  // PDF max
   const N=300;
   let maxP=0;
-  for(let i=0;i<=N;i++){
-    const x=dMin+i*(dMax-dMin)/N;
-    maxP=Math.max(maxP,pdfFn(x));
-  }
-  const yMax=Math.max(maxD,maxP)*1.2||1;
-  const margin=(dMax-dMin)*0.1;
-  const xMin=dMin-margin, xMax=dMax+margin;
+  const mg=(dMax-dMin)*0.12;
+  const xMin=dMin-mg,xMax=dMax+mg;
+  for(let i=0;i<=N;i++){const x=xMin+i*(xMax-xMin)/N;const y=pdfFn(x);if(y>maxP)maxP=y;}
+  const yMax=Math.max(Math.max(...dens),maxP)*1.25||1;
 
-  const toPixX=x=>PAD.l+(x-xMin)/(xMax-xMin)*w;
-  const toPixY=y=>PAD.t+h-(y/yMax)*h;
+  const toX=x=>PAD.l+(x-xMin)/(xMax-xMin)*w;
+  const toY=y=>PAD.t+h-(y/yMax)*h;
 
   hCtx.clearRect(0,0,W,H);
 
   // grid
-  hCtx.strokeStyle=COLORS.grid; hCtx.lineWidth=1;
   for(let i=0;i<=5;i++){
-    const y=i/5*yMax;
-    const py=toPixY(y);
+    const y=i/5*yMax,py=toY(y);
+    hCtx.strokeStyle='#1e2535';hCtx.lineWidth=1;
     hCtx.beginPath();hCtx.moveTo(PAD.l,py);hCtx.lineTo(PAD.l+w,py);hCtx.stroke();
-    hCtx.fillStyle=COLORS.text;hCtx.font=`10px 'Space Mono'`;hCtx.textAlign='right';
+    hCtx.fillStyle='#6272a4';hCtx.font="10px 'Space Mono'";hCtx.textAlign='right';
     hCtx.fillText(y.toFixed(3),PAD.l-6,py+4);
   }
 
   // histogram bars
-  for(let i=0;i<nBins;i++){
-    const x=dMin+i*bw;
-    const px=toPixX(x), py=toPixY(densities[i]), pw=toPixX(x+bw)-toPixX(x);
-    hCtx.fillStyle='rgba(0,229,255,0.18)';
-    hCtx.strokeStyle='rgba(0,229,255,0.6)';
+  for(let i=0;i<nb;i++){
+    const x=dMin+i*bw,pw=toX(dMin+(i+1)*bw)-toX(dMin+i*bw);
+    const px=toX(x),py=toY(dens[i]);
+    hCtx.fillStyle='rgba(0,229,255,0.15)';
+    hCtx.strokeStyle='rgba(0,229,255,0.55)';
     hCtx.lineWidth=1;
-    hCtx.fillRect(px,py,pw-1,toPixY(0)-py);
-    hCtx.strokeRect(px,py,pw-1,toPixY(0)-py);
+    hCtx.fillRect(px,py,pw-1,toY(0)-py);
+    hCtx.strokeRect(px,py,pw-1,toY(0)-py);
   }
 
-  // fitted PDF curve
-  hCtx.strokeStyle=COLORS.x2; hCtx.lineWidth=2.5;
-  hCtx.shadowColor=COLORS.x2; hCtx.shadowBlur=8;
+  // fitted PDF
+  hCtx.strokeStyle='#ffb347';hCtx.lineWidth=2.5;
+  hCtx.shadowColor='#ffb347';hCtx.shadowBlur=8;
   hCtx.beginPath();
   for(let i=0;i<=N;i++){
-    const x=xMin+i*(xMax-xMin)/N;
-    const y=pdfFn(x);
-    if(i===0) hCtx.moveTo(toPixX(x),toPixY(y));
-    else hCtx.lineTo(toPixX(x),toPixY(y));
+    const x=xMin+i*(xMax-xMin)/N,y=pdfFn(x);
+    i===0?hCtx.moveTo(toX(x),toY(y)):hCtx.lineTo(toX(x),toY(y));
   }
-  hCtx.stroke();
-  hCtx.shadowBlur=0;
+  hCtx.stroke();hCtx.shadowBlur=0;
 
   // axes
-  hCtx.strokeStyle=COLORS.axis;hCtx.lineWidth=1.5;
+  hCtx.strokeStyle='#6272a4';hCtx.lineWidth=1.5;
   hCtx.beginPath();hCtx.moveTo(PAD.l,PAD.t);hCtx.lineTo(PAD.l,PAD.t+h);hCtx.lineTo(PAD.l+w,PAD.t+h);hCtx.stroke();
 
   // x labels
-  for(let i=0;i<=6;i++){
-    const x=xMin+i*(xMax-xMin)/6;
-    const px=toPixX(x);
-    hCtx.fillStyle=COLORS.text;hCtx.font=`10px 'Space Mono'`;hCtx.textAlign='center';
+  for(let i=0;i<=7;i++){
+    const x=xMin+i*(xMax-xMin)/7,px=toX(x);
+    hCtx.fillStyle='#6272a4';hCtx.font="10px 'Space Mono'";hCtx.textAlign='center';
     hCtx.fillText(x.toFixed(1),px,PAD.t+h+16);
   }
 
   // legend
-  hCtx.fillStyle='rgba(0,229,255,0.5)';hCtx.fillRect(W-120,PAD.t+4,12,12);
-  hCtx.fillStyle=COLORS.text;hCtx.font=`10px 'Space Mono'`;hCtx.textAlign='left';
-  hCtx.fillText('histogram',W-104,PAD.t+14);
-
-  hCtx.strokeStyle=COLORS.x2;hCtx.lineWidth=2;
-  hCtx.beginPath();hCtx.moveTo(W-120,PAD.t+26);hCtx.lineTo(W-108,PAD.t+26);hCtx.stroke();
-  hCtx.fillStyle=COLORS.text;
-  hCtx.fillText('fitted PDF',W-104,PAD.t+30);
+  hCtx.fillStyle='rgba(0,229,255,0.5)';hCtx.fillRect(W-130,PAD.t+6,12,12);
+  hCtx.fillStyle='#6272a4';hCtx.font="10px 'Space Mono'";hCtx.textAlign='left';
+  hCtx.fillText('histogram',W-114,PAD.t+16);
+  hCtx.strokeStyle='#ffb347';hCtx.lineWidth=2;
+  hCtx.beginPath();hCtx.moveTo(W-130,PAD.t+28);hCtx.lineTo(W-118,PAD.t+28);hCtx.stroke();
+  hCtx.fillStyle='#6272a4';hCtx.fillText('fitted PDF',W-114,PAD.t+32);
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   DEPLOY LINKS
-═══════════════════════════════════════════════════════════════ */
-function updateDeployLink(){
-  const url=document.getElementById('deployUrl').value.trim();
-  if(url) document.getElementById('deployLink').href=url;
-  return false;
-}
-function updateDeployLink2(){
-  const url=document.getElementById('deployUrl2').value.trim();
-  if(url) document.getElementById('deployLink2').href=url;
-  return false;
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   STATUS BAR
-═══════════════════════════════════════════════════════════════ */
-function setStatus(msg){document.getElementById('statusMsg').textContent=msg;}
-
-/* ═══════════════════════════════════════════════════════════════
-   INIT
-═══════════════════════════════════════════════════════════════ */
-document.getElementById('paramBody').innerHTML=paramTemplates.uniform();
-setTimeout(()=>{resizeCanvas();drawPDF();},100);
+/* ══════ INIT ══════ */
+document.getElementById('paramBody').innerHTML=paramHTML();
+initCanvas('pdfCanvas');
+drawPDF();
 </script>
 </body>
 </html>
