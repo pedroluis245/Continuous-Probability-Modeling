@@ -120,18 +120,6 @@ canvas{display:block;}
 .ai-link{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:6px;border:1px solid var(--border);background:var(--bg3);color:var(--accent);font-family:var(--mono);font-size:12px;text-decoration:none;margin-right:10px;margin-top:6px;transition:all .2s;}
 .ai-link:hover{border-color:var(--accent);background:rgba(0,229,255,.07);}
 
-/* REPORT */
-.report{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:28px;max-width:860px;font-size:14px;line-height:1.8;}
-.report h1{font-family:var(--mono);font-size:17px;color:var(--accent);letter-spacing:1px;margin-bottom:6px;}
-.report h2{font-family:var(--mono);font-size:13px;color:var(--accent3);letter-spacing:1px;margin:22px 0 8px;text-transform:uppercase;border-bottom:1px solid var(--border);padding-bottom:6px;}
-.report p{margin-bottom:10px;}
-.report .cite{color:var(--accent4);font-style:italic;}
-.report table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px;}
-.report th{background:var(--bg3);font-family:var(--mono);font-size:11px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;padding:8px 12px;text-align:left;border:1px solid var(--border);}
-.report td{padding:8px 12px;border:1px solid var(--border);}
-.report ul{list-style:none;padding:0;}
-.report ul li{padding:6px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--muted);}
-hr.d{border:none;border-top:1px dashed var(--border);margin:18px 0;}
 
 /* HELPERS */
 .mt8{margin-top:8px;}.mt12{margin-top:12px;}.mt16{margin-top:16px;}
@@ -150,7 +138,6 @@ hr.d{border:none;border-top:1px dashed var(--border);margin:18px 0;}
     <button id="nav-c8" class="active" onclick="showSec('c8')">C8 — Simulate</button>
     <button id="nav-c9" onclick="showSec('c9')">C9 — Model Data</button>
     <button id="nav-ai" onclick="showSec('ai')">AI Record</button>
-    <button id="nav-c10" onclick="showSec('c10')">C10 — Report</button>
   </nav>
 </header>
 
@@ -286,62 +273,7 @@ hr.d{border:none;border-top:1px dashed var(--border);margin:18px 0;}
   </div>
 </section>
 
-<!-- ══════════════════════════════ C10 ══════════════════════════════ -->
-<section id="sec-c10" class="section">
-  <div class="sec-head"><h2>// C10 — Evidence-Based Report</h2><p>Real-life data analysis using continuous probability models. APA 7th edition.</p></div>
-  <div class="report">
-    <h1>Modeling Daily Temperature Ranges in Colombian Cities Using Continuous Probability Distributions</h1>
-    <p style="color:var(--muted);font-family:var(--mono);font-size:12px;">Global Economics · Grade 10 · Term 3 · Learning Evidence 4 · C10</p>
-    <hr class="d"/>
-    <h2>Introduction</h2>
-    <p>Temperature variability is a critical dimension of climate behavior that affects agricultural productivity, public health planning, and energy demand. In Colombia, a country characterized by extreme topographic and climatic diversity, daily temperature ranges vary substantially between cities like Bogotá (2,600 m altitude), Medellín (1,495 m), and Cartagena (sea level). Understanding the statistical distribution of these temperature ranges enables more accurate forecasting and resource allocation (<span class="cite">IDEAM, 2023</span>).</p>
-    <p>Continuous probability distributions provide a rigorous framework for modeling such phenomena. The normal distribution captures symmetric, bell-shaped variability; the triangular distribution represents bounded, skewed ranges; and piecewise uniform models approximate distributions where frequency is roughly constant within segments (<span class="cite">DeGroot &amp; Schervish, 2012</span>).</p>
-    <h2>Research Question</h2>
-    <p><strong>How well do three continuous probability models — normal, triangular, and piecewise uniform — describe the distribution of mean monthly temperatures in Bogotá, Medellín, and Cartagena, and what do the resulting probability estimates reveal about thermal behavior in each city?</strong></p>
-    <h2>Data Description</h2>
-    <p>Monthly mean temperature data (°C) for the period 2010–2022 were obtained from the Colombian Institute of Hydrology, Meteorology, and Environmental Studies (IDEAM) and supplemented by NASA's POWER climate database (<span class="cite">NASA, 2024</span>). Three datasets were used, one per city, each containing monthly mean temperatures averaged over the study period.</p>
-    <table>
-      <tr><th>City</th><th>n</th><th>Mean μ (°C)</th><th>Std Dev σ (°C)</th><th>Min</th><th>Max</th></tr>
-      <tr><td>Bogotá</td><td>12</td><td>13.8</td><td>0.72</td><td>12.6</td><td>14.9</td></tr>
-      <tr><td>Medellín</td><td>12</td><td>22.3</td><td>0.95</td><td>20.8</td><td>24.1</td></tr>
-      <tr><td>Cartagena</td><td>12</td><td>28.4</td><td>0.68</td><td>27.3</td><td>29.7</td></tr>
-    </table>
-    <h2>Methodology</h2>
-    <p>For each dataset, three distributions were fitted: (1) a <strong>normal</strong> model using sample mean and standard deviation; (2) a <strong>triangular</strong> model using minimum, maximum, and modal bin midpoint; and (3) a <strong>piecewise uniform</strong> model dividing the range into four equal-width bins with heights proportional to relative frequency, normalized so total area = 1. Probabilities were computed numerically using the trapezoidal rule with 2,000 subintervals (error &lt; 0.001).</p>
-    <h2>Results</h2>
-    <p><strong>Bogotá — N(13.8, 0.72) | T(12.6, 13.8, 14.9) | PW [12.6, 14.9]</strong></p>
-    <table>
-      <tr><th>Model</th><th>P(μ−σ &lt; X &lt; μ+σ)</th><th>P(X &lt; μ−2σ or X &gt; μ+2σ)</th></tr>
-      <tr><td>Normal</td><td>0.6827</td><td>0.0456</td></tr>
-      <tr><td>Triangular</td><td>0.6411</td><td>0.0594</td></tr>
-      <tr><td>Piecewise Uniform</td><td>0.6100</td><td>0.0800</td></tr>
-    </table>
-    <p class="mt12"><strong>Medellín — N(22.3, 0.95) | T(20.8, 22.3, 24.1) | PW [20.8, 24.1]</strong></p>
-    <table>
-      <tr><th>Model</th><th>P(μ−σ &lt; X &lt; μ+σ)</th><th>P(X &lt; μ−2σ or X &gt; μ+2σ)</th></tr>
-      <tr><td>Normal</td><td>0.6827</td><td>0.0456</td></tr>
-      <tr><td>Triangular</td><td>0.6538</td><td>0.0521</td></tr>
-      <tr><td>Piecewise Uniform</td><td>0.6300</td><td>0.0750</td></tr>
-    </table>
-    <p class="mt12"><strong>Cartagena — N(28.4, 0.68) | T(27.3, 28.5, 29.7) | PW [27.3, 29.7]</strong></p>
-    <table>
-      <tr><th>Model</th><th>P(μ−σ &lt; X &lt; μ+σ)</th><th>P(X &lt; μ−2σ or X &gt; μ+2σ)</th></tr>
-      <tr><td>Normal</td><td>0.6827</td><td>0.0456</td></tr>
-      <tr><td>Triangular</td><td>0.6621</td><td>0.0487</td></tr>
-      <tr><td>Piecewise Uniform</td><td>0.6450</td><td>0.0700</td></tr>
-    </table>
-    <h2>Discussion</h2>
-    <p>The <strong>normal model</strong> consistently yielded the highest central-region probability (≈0.683) and lowest tail probability (≈0.046), reflecting the distribution's symmetry and thin tails. Visually, the normal PDF best matched the histogram shapes across all three cities. The <strong>triangular model</strong> produced slightly lower central probabilities and has the strength of being bounded within the observed range, but is sensitive to the choice of mode (<span class="cite">DeGroot &amp; Schervish, 2012</span>). The <strong>piecewise uniform model</strong> is the most flexible — it requires no shape assumptions — but tends to overestimate tail probabilities with few bins. From a geographic standpoint, Bogotá's narrow range (12.6–14.9°C) reflects its high-altitude climate; Cartagena's near-constant warmth is stabilized by the Caribbean Sea (<span class="cite">IDEAM, 2023</span>).</p>
-    <h2>Conclusion</h2>
-    <p>All three models adequately describe the temperature distributions, but the normal distribution provides the closest fit based on visual histogram comparison and probability consistency with the empirical 68–95–99.7 rule. The triangular model is a useful bounded alternative, and the piecewise uniform model serves as a non-parametric baseline. These results highlight the importance of comparing multiple models before drawing statistical conclusions (<span class="cite">NASA, 2024</span>).</p>
-    <h2>References</h2>
-    <ul>
-      <li>DeGroot, M. H., &amp; Schervish, M. J. (2012). <em>Probability and statistics</em> (4th ed.). Pearson Education.</li>
-      <li>IDEAM. (2023). <em>Datos históricos climáticos de Colombia</em>. Instituto de Hidrología, Meteorología y Estudios Ambientales. https://www.ideam.gov.co/</li>
-      <li>NASA. (2024). <em>POWER — Prediction of worldwide energy resources</em>. National Aeronautics and Space Administration. https://power.larc.nasa.gov/</li>
-    </ul>
-  </div>
-</section>
+
 
 <script>
 /* ══════ NAVIGATION ══════ */
